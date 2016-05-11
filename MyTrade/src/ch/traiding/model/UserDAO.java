@@ -13,6 +13,10 @@ public class UserDAO {
 
     private Connection connection;
 
+    public UserDAO(){
+    	
+    }
+    
     public User login(String user, String password) throws SQLException {
         String insert = "SELECT User_ID, Benutzername, Name, Vorname, Passwort, Rolle, AccountBalance FROM user WHERE Benutzername=? AND Passwort=?";
         PreparedStatement statement = null;
@@ -44,7 +48,7 @@ public class UserDAO {
 
     }
 
-    public void getConnection(Connection connection) {
+    public void useConnection(Connection connection) {
         this.connection = connection;
     }
 

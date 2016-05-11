@@ -2,9 +2,12 @@ package ch.traiding.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.naming.NoPermissionException;
+
 import java.sql.*;
 import ch.traiding.*;
-import ch.traiding.util.ConnectionPool;
+import ch.traiding.util.ConnectionPoolingImplementation;
 
 /**
  *
@@ -12,11 +15,20 @@ import ch.traiding.util.ConnectionPool;
  */
 public class TradingService {
 	String connectionURL = "jdbc:mysql://localhost/myTrade";
+	ConnectionPoolingImplementation connectionPool;
+	
     public TradingService() {
+
+		try {
+			connectionPool = ConnectionPoolingImplementation.getInstance(1,20);
+		} catch (NoPermissionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     public User login(String user, String password) {
-        Connection connection = ConnectionPool.getConnectionPool().getConnection();
+        Connection connection = connectionPool.getConnection();
 
         try {
             UserDAO userDAO = new UserDAO();
@@ -30,7 +42,7 @@ public class TradingService {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            ConnectionPool.getConnectionPool().returnConnection(connection);
+        	connectionPool.putConnection(connection);
         }
 
     }
@@ -39,7 +51,7 @@ public class TradingService {
     }
 
     public void createProduct(Stock product, int stock) {
-        Connection connection = ConnectionPool.getConnectionPool().getConnection();
+        Connection connection =connectionPool .getConnection();
 
         try {
             connection.setAutoCommit(false);
@@ -56,7 +68,7 @@ public class TradingService {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            ConnectionPool.getConnectionPool().returnConnection(connection);
+        	connectionPool.putConnection(connection);;
         }
 
     }
@@ -89,61 +101,61 @@ public class TradingService {
     public void execute(Long orderId) {
     }
 
-    public void setupSystem() {
-        // Drop tables, create tables..
-
-        ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
-        Connection connection = connectionPool.getConnection();
-        try {
-            connection.setAutoCommit(false);
-            Statement statement = connection.createStatement();
-
-            // Lösche, ob existiert oder nicht. 
-            dropTable("T_ORDER", statement);
-            dropTable("T_USER_STOCK", statement);
-            dropTable("T_USER", statement);
-            dropTable("T_STOCK", statement);
-
-            // SQL inkl. vielen wichtigen Constraints
-            String createProduct = "CREATE TABLE T_STOCK (ID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY CONSTRAINT PK_STOCK PRIMARY KEY, NAME VARCHAR(50), NOMINAL DOUBLE, PRICE DOUBLE, DIVIDEND DOUBLE)";
-            String createUser = "CREATE TABLE T_USER (ID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY CONSTRAINT PK_USER PRIMARY KEY, LOGIN VARCHAR(50), PASSWORD VARCHAR(50), ROLE VARCHAR(50), BALANCE DOUBLE)";
-            String createOrder = "CREATE TABLE T_ORDER (ID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY CONSTRAINT PK_ORDER PRIMARY KEY, STOCK_ID INTEGER CONSTRAINT FK_STOCK REFERENCES T_STOCK, BUYER_ID INTEGER CONSTRAINT FK_BUYER REFERENCES T_USER, SELLER_ID INTEGER CONSTRAINT FK_SELLER REFERENCES T_USER, PRICE DOUBLE, EXECUTED SMALLINT)";
-            String createUserProduct = "CREATE TABLE T_USER_STOCK (USER_ID INTEGER CONSTRAINT FK_USER REFERENCES T_USER, STOCK_ID INTEGER CONSTRAINT FK_STOCK2 REFERENCES T_STOCK)";
-
-            statement.execute(createProduct);
-            statement.execute(createUser);
-            statement.execute(createOrder);
-            statement.execute(createUserProduct);
-
-            // create Administrator
-            User user = new User();
-            user.setUser("admin");
-            user.setPassword("admin");
-            user.setRole(User.ROLE_ADMIN);
-            user.setAccountBalance(0);
-
-            UserDAO userDAO = new UserDAO();
-            userDAO.useConnection(connection);
-
-            userDAO.insert(user);
-
-
-            connection.commit();
-
-            statement.close();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-
-            connectionPool.returnConnection(connection);
-        }
-    }
-
-    private void dropTable(String table, Statement statement) {
-        try {
-            statement.execute(SQLUtil.dropTable(table));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void setupSystem() {
+//        // Drop tables, create tables..
+//
+//    	ConnectionPoolingImplementation connectionPool = ConnectionPoolingImplementation.getInstance(1,20);
+//        Connection connection = connectionPool.getConnection();
+//        try {
+//            connection.setAutoCommit(false);
+//            Statement statement = connection.createStatement();
+//
+//            // Lösche, ob existiert oder nicht. 
+//            dropTable("T_ORDER", statement);
+//            dropTable("T_USER_STOCK", statement);
+//            dropTable("T_USER", statement);
+//            dropTable("T_STOCK", statement);
+//
+//            // SQL inkl. vielen wichtigen Constraints
+//            String createProduct = "CREATE TABLE T_STOCK (ID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY CONSTRAINT PK_STOCK PRIMARY KEY, NAME VARCHAR(50), NOMINAL DOUBLE, PRICE DOUBLE, DIVIDEND DOUBLE)";
+//            String createUser = "CREATE TABLE T_USER (ID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY CONSTRAINT PK_USER PRIMARY KEY, LOGIN VARCHAR(50), PASSWORD VARCHAR(50), ROLE VARCHAR(50), BALANCE DOUBLE)";
+//            String createOrder = "CREATE TABLE T_ORDER (ID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY CONSTRAINT PK_ORDER PRIMARY KEY, STOCK_ID INTEGER CONSTRAINT FK_STOCK REFERENCES T_STOCK, BUYER_ID INTEGER CONSTRAINT FK_BUYER REFERENCES T_USER, SELLER_ID INTEGER CONSTRAINT FK_SELLER REFERENCES T_USER, PRICE DOUBLE, EXECUTED SMALLINT)";
+//            String createUserProduct = "CREATE TABLE T_USER_STOCK (USER_ID INTEGER CONSTRAINT FK_USER REFERENCES T_USER, STOCK_ID INTEGER CONSTRAINT FK_STOCK2 REFERENCES T_STOCK)";
+//
+//            statement.execute(createProduct);
+//            statement.execute(createUser);
+//            statement.execute(createOrder);
+//            statement.execute(createUserProduct);
+//
+//            // create Administrator
+//            User user = new User();
+//            user.setUser("admin");
+//            user.setPassword("admin");
+//            user.setRole(User.ROLE_ADMIN);
+//            user.setAccountBalance(0);
+//
+//            UserDAO userDAO = new UserDAO();
+//            userDAO.useConnection(connection);
+//
+//            userDAO.insert(user);
+//
+//
+//            connection.commit();
+//
+//            statement.close();
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        } finally {
+//
+//            connectionPool.returnConnection(connection);
+//        }
+//    }
+//
+//    private void dropTable(String table, Statement statement) {
+//        try {
+//            statement.execute(SQLUtil.dropTable(table));
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }
