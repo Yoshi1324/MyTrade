@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -50,6 +51,34 @@ public class UserDAO {
 
     public void useConnection(Connection connection) {
         this.connection = connection;
+    }
+    
+    public ArrayList<Stock> getAllAktienforUser(User user) throws SQLException{
+    	Stock aktie;
+    	ArrayList<Stock> aktienList = new ArrayList<Stock>();
+    	String insert = "SELECT aktien.Symbol, aktien.Bezeichnung, aktien.NormalPreis, aktien.Dividende FROM useraktien"
+    			+ " LEFT JOIN aktien ON useraktien.User_ID = " + user.getId() + " AND useraktien.Symbol = aktien.Symbol";
+        PreparedStatement statement = null;
+
+        try {
+            statement = connection.prepareStatement(insert);
+
+            ResultSet result = statement.executeQuery();
+
+            // OK, es hat ein Ergebnis
+            while (result.next()) {
+                aktie = new Stock();
+                aktie.setSymbol(result.getString("aktien.Symbol"));
+                aktie.setName(result.getString("Bezeichnung"));
+                aktie.setNominalPrice(result.getDouble("aktien.NormalPreis"));
+                aktie.setPrice(result.getDouble("aktien.NormalPreis"));
+                aktie.setDividend(result.getDouble("aktien.Dividende"));
+                aktienList.add(aktie);
+            } 
+            return aktienList;
+        } finally {
+            statement.close();
+        }
     }
 
     public void insert(User user) throws SQLException {

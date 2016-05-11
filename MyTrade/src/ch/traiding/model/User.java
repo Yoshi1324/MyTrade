@@ -1,14 +1,16 @@
 package ch.traiding.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author cme
  */
 public class User {
 
-    public static final String ROLE_TRADFER = "trader";
+    public static final String ROLE_TRADFER = "2";
 
-    public static final String ROLE_ADMIN = "admin";
+    public static final String ROLE_ADMIN = "1";
 
     private Integer id;
 
@@ -24,7 +26,17 @@ public class User {
 
     private double accountBalance;
     
-    public User(){
+    private ArrayList<Stock> Aktien = new ArrayList<Stock>();
+    
+    public ArrayList<Stock> getAktien() {
+		return Aktien;
+	}
+
+	public void setAktien(ArrayList<Stock> aktien) {
+		Aktien = aktien;
+	}
+
+	public User(){
     	
     	accountBalance = 10000.00;
     

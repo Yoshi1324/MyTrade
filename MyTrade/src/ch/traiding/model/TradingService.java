@@ -34,7 +34,7 @@ public class TradingService {
             UserDAO userDAO = new UserDAO();
             userDAO.useConnection(connection);
             User u = userDAO.login(user, password);
-            
+            u.setAktien(userDAO.getAllAktienforUser(u));
             System.out.println("BENUTZER: " + u); // TODO remove sysout Statements
 
             return u;
@@ -46,7 +46,7 @@ public class TradingService {
         }
 
     }
-
+    
     public void payDividend() {
     }
 

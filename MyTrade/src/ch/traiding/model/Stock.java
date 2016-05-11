@@ -6,7 +6,7 @@ package ch.traiding.model;
  */
 public class Stock {
 
-    private Integer id;
+    private String symbol;
 
     private String name;
 
@@ -48,11 +48,11 @@ public class Stock {
         this.price = price;
     }
 
-    public Integer getId() {
-        return id;
+    public String getSymbol() {
+        return symbol;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
     }
 }
