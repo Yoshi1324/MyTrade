@@ -14,13 +14,7 @@ public class UserDAO {
     private Connection connection;
 
     public User login(String user, String password) throws SQLException {
-
-
-        if (connection == null) {
-            throw new IllegalArgumentException("You must call useConnection before interacting with the database");
-        }
-
-        String insert = "SELECT ID, LOGIN, PASSWORD, ROLE, BALANCE FROM T_USER WHERE LOGIN=? AND PASSWORD=?";
+        String insert = "SELECT User_ID, Benutzername, Name, Vorname, Passwort, Rolle, AccountBalance FROM user WHERE Benutzername=? AND Passwort=?";
         PreparedStatement statement = null;
 
         try {
@@ -33,13 +27,12 @@ public class UserDAO {
             if (result.next()) {
                 User u = new User();
                 u.setId(Integer.valueOf(result.getInt(1)));
-                u.setUser(result.getString(2));
-
-                String role = result.getString(4);
-                // TODO check if the role is valid, then set it
-                u.setRole(role);
-
-                u.setAccountBalance(result.getDouble(5));
+                u.setUsername(result.getString(2));
+                u.setName(result.getString(3));
+                u.setVorname(result.getString(4));
+                u.setPassword(result.getString(5));
+                u.setRole(result.getInt(6));
+                u.setAccountBalance(result.getDouble(7));
                 return u;
             } else {
                 return null; // Kein passendes Login gefunden
@@ -51,23 +44,21 @@ public class UserDAO {
 
     }
 
-    public void useConnection(Connection connection) {
+    public void getConnection(Connection connection) {
         this.connection = connection;
     }
 
     public void insert(User user) throws SQLException {
-        if (connection == null) {
-            throw new IllegalArgumentException("You must call useConnection before interacting with the database");
-        }
-
-        String insert = "INSERT INTO T_USER (LOGIN, PASSWORD, ROLE, BALANCE) VALUES(?,?,?,?)";
+        String insert = "INSERT INTO T_USER (Benutzername, Name, Vorname, Passwort, Rolle, AccountBalance) VALUES(?,?,?,?,?,?)";
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(insert);
-            statement.setString(1, user.getUser());
-            statement.setString(2, user.getPassword());
-            statement.setString(3, user.getRole());
-            statement.setDouble(4, user.getAccountBalance());
+            statement.setString(1, user.getUsername());
+            statement.setString(2, user.getName());
+            statement.setString(3, user.getVorname());
+            statement.setString(4, user.getPassword());
+            statement.setInt(5, user.getRole());
+            statement.setDouble(6, user.getAccountBalance());
             statement.executeUpdate();
         } finally {
             statement.close();

@@ -12,14 +12,24 @@ public class User {
 
     private Integer id;
 
-    private String user;
+    private String username;
+    
+    private String name;
+    
+    private String vorname;
 
     private String password;
 
-    private String role;
+    private Integer role;
 
     private double accountBalance;
-
+    
+    public User(){
+    	
+    	accountBalance = 10000.00;
+    
+    }
+    
     public double getAccountBalance() {
         return accountBalance;
     }
@@ -36,23 +46,39 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
+    public Integer getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Integer role) {
         this.role = role;
     }
 
-    public String getUser() {
-        return user;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUsername(String user) {
+        this.username = username;
     }
 
-    public Integer getId() {
+    public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getVorname() {
+		return vorname;
+	}
+
+	public void setVorname(String vorname) {
+		this.vorname = vorname;
+	}
+
+	public Integer getId() {
         return id;
     }
 
