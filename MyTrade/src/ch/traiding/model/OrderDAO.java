@@ -30,7 +30,9 @@ public class OrderDAO {
         }
     }
     
-    public void finishOrder()
+    public void finishOrder(){
+    	
+    }
 
     public void useConnection(Connection connection) {
         this.connection = connection;
