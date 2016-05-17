@@ -20,14 +20,17 @@ public class HomeBean {
 	
 	public String login(){
 		u = tService.login(user, password);
+		
 		if(u.getRole().equals(1)){
-			return "admin/Admin?faces-redirect=true";
+			return "/admin/Admin?faces-redirect=true";
 		}else if(u.getRole().equals(2)){
-			return "haendler/Index?faces-redirect=true";
+			return "/haendler/Index?faces-redirect=true";
 		}else{
 			return "";
 		}
 	}
+	
+
 
 	public User getU() {
 		return u;
