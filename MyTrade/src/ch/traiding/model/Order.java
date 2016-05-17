@@ -12,27 +12,7 @@ public class Order {
 
     private User seller;
 
-    private User buyer;
-
-    private boolean executed;
-
     private double price;
-
-    public User getBuyer() {
-        return buyer;
-    }
-
-    public void setBuyer(User buyer) {
-        this.buyer = buyer;
-    }
-
-    public boolean isExecuted() {
-        return executed;
-    }
-
-    public void setExecuted(boolean executed) {
-        this.executed = executed;
-    }
 
     public double getPrice() {
         return price;
