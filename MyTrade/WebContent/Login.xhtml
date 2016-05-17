@@ -26,17 +26,17 @@
 			<h:panelGrid>
 				<p:outputLabel for="fieldBenutzername" value="Benutzername:" />
 				<p:inputText id="fieldBenutzername"
-					value="#{loginFormBean.username}">
+					value="#{homeBean.user}">
 					<f:validateRequired />
 				</p:inputText>
 
 				<p:outputLabel for="fieldPasswort" value="Passwort:" />
-				<p:password id="fieldPasswort" value="#{loginFormBean.password}">
+				<p:password id="fieldPasswort" value="#{homeBean.password}">
 					<f:validateRequired />
 				</p:password>
 			</h:panelGrid>
 
-			<p:commandButton value="OK" action="#{loginFormBean.anmelden}" />
+			<p:commandButton value="OK" action="#{homeBean.login()}" />
 
 			<p:messages for="fieldBenutzername" style="color:red;margin:8px;" />
 			<p:messages for="fieldPasswort" style="color:red;margin:8px;" />
