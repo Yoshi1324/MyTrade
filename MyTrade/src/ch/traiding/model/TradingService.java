@@ -20,7 +20,7 @@ public class TradingService {
     public TradingService() {
 
 		try {
-			connectionPool = ConnectionPoolingImplementation.getInstance(1,20);
+			connectionPool = ConnectionPoolingImplementation.getInstance(1,5);
 		} catch (NoPermissionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
