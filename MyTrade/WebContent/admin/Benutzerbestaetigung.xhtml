@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+	Author:	Ryan Brun
+	Date:	17.05.2016 
+ -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+<head>
+<link rel="stylesheet" type="text/css" href="../../css/style.css"
+	title="Standard" />
+<title>Aktien erfassen</title>
+</head>
+<body>
+	<div id="mutterBox">
+		<f:view>Benutzer Bestätigung</f:view>
+	</div>
+	<div id="meldungBox">
+		<h:outputText value="#{meldungFormBean.aktuelleMeldung}" />
+		<!-- 		<h:outputText value="#{aktienFormBean.name}" /> -->
+	</div>
+
+	<div id="inhaltBox">
+		<h:form>
+			<h:panelGrid>
+				<h:outputLabel for="fieldName" value="Name" />
+				<h:outputLabel id="fieldName" value="#{benutzerFormBean.name}" />
+
+				<h:outputLabel for="fieldVorname" value="Vorname" />
+				<h:outputLabel id="fieldVorname" value="#{benutzerFormBean.vorname}" />
+
+				<h:outputLabel for="fieldLogin" value="Login" />
+				<h:outputLabel id="fieldLogin" value="#{benutzerFormBean.login}" />
+
+				<h:outputLabel for="fieldPasswort" value="Passwort" />
+				<h:inputSecret id="fieldPasswort"
+					value="#{benutzerFormBean.passwort}" />
+
+				<h:outputLabel for="fieldRolle" value="Rolle" />
+				<h:outputLabel id="fieldRolle" value="#{benutzerFormBean.rolle}" />
+			</h:panelGrid>
+
+			<h:commandButton value="Zurück" action="#{benutzerFormBean.back2}"
+				ajax="false" />
+			<h:commandButton value="Speichern"
+				action="#{benutzerFormBean.saveUser}" ajax="false" />
+
+			<br />
+			<h:outputLabel for="Hinweis"
+				value="Bitte geben Sie ein Passwort ein und Bestätigen Sie Ihre Eingaben." />
+
+		</h:form>
+	</div>
+</body>
+</html>

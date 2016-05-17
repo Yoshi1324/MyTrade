@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+	Author:	Ryan Brun
+	Date:	17.05.2016 
+ -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+<head>
+<link rel="stylesheet" type="text/css" href="../../css/style.css"
+	title="Standard" />
+<title>Aktie erfassen</title>
+</head>
+<body>
+	<div id="mutterBox">
+		<div id="portfolioBox">
+			<h:panelGrid columns="5">
+				<h:outputLink
+					value="/MyTrade_A/faces/private/haendler/Portfolio.xhtml">Mein Portfolio</h:outputLink>
+			</h:panelGrid>
+		</div>
+		<div id="auftragBox">
+			<h:panelGrid columns="5">
+				<td><h:outputLink
+						value="/MyTrade_A/faces/private/haendler/Auftraege.xhtml">Offene Aufträge</h:outputLink></td>
+			</h:panelGrid>
+		</div>
+		<div id="administrationBox">
+			<h:panelGrid columns="5">
+				<td><h:outputLink
+						value="/MyTrade_A/faces/private/admin/Admin.xhtml">Administration</h:outputLink></td>
+			</h:panelGrid>
+		</div>
+		<div id="aktienErfassenBox">
+			<h:panelGrid columns="5">
+				<td><h:outputLink
+						value="/MyTrade_A/faces/private/admin/Aktienerfassen.xhtml">Aktien erfassen</h:outputLink></td>
+			</h:panelGrid>
+		</div>
+		<f:view>Aktie erfassen</f:view>
+		<div id="meldungBox"></div>
+		<h:outputText value="#{meldungFormBean.aktuelleMeldung}" />
+		<div id="inhaltBox">
+			<h:form>
+				<h:panelGrid>
+					<h:outputLabel for="fieldName" value="Name" />
+					<h:inputText id="fieldName" value="#{aktienFormBean.name}">
+						<f:validateLength minimum="3" maximum="20" />
+						<f:validateRegex pattern="[a-zA-Z]*" />
+					</h:inputText>
+
+					<h:outputLabel for="fieldKuerzel" value="Kürzel" />
+					<h:inputText id="fieldKuerzel" value="#{aktienFormBean.kuerzel}">
+						<f:validateLength minimum="4" maximum="4" />
+						<f:validateRegex pattern="[a-zA-Z]*" />
+					</h:inputText>
+
+					<h:outputLabel for="fieldPreis" value="Normalpreis (CHF)" />
+					<h:inputText id="fieldPreis" value="#{aktienFormBean.nominalpreis}">
+						<f:validateDoubleRange minimum="0.0" maximum="5000.0" />
+					</h:inputText>
+
+					<h:outputLabel for="fieldDividende" value="Dividende" />
+					<h:inputText id="fieldDividende"
+						value="#{aktienFormBean.dividende}">
+						<f:validateDoubleRange minimum="0.0" maximum="50.0" />
+					</h:inputText>
+
+					<h:outputLabel for="fieldAnzahl" value="Stückanzahl" />
+					<h:inputText id="fieldAnzahl" value="#{aktienFormBean.anzahl}">
+						<f:validateLongRange minimum="1" maximum="100" />
+					</h:inputText>
+				</h:panelGrid>
+
+				<h:commandButton value="Zurück" action="#{aktienFormBean.back}"
+					ajax="false" />
+				<h:commandButton value="weiter" action="#{aktienFormBean.next}"
+					ajax="false" />
+
+				<h:messages for="fieldName" style="color:red;margin:8px;" />
+				<h:messages for="fieldKuerzel" style="color:red;margin:8px;" />
+				<h:messages for="fieldPreis" style="color:red;margin:8px;" />
+				<h:messages for="fieldDividende" style="color:red;margin:8px;" />
+				<h:messages for="fieldAnzahl" style="color:red;margin:8px;" />
+
+			</h:form>
+		</div>
+	</div>
+</body>
+</html>
