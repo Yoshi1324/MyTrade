@@ -1,15 +1,32 @@
 package ch.traiding.Bean;
 
+
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+
 import ch.traiding.model.*;
+
+@ManagedBean(name = "homeBean")
+@ApplicationScoped
 public class HomeBean {
 	private User u = new User();
 	private String user;
 	private String password;
 	private TradingService tService;
-	
+
 	public HomeBean(){
 		tService = new TradingService();
+	}
+	
+	public String login(){
 		u = tService.login(user, password);
+		if(u.getRole().equals(1)){
+			return "admin/Admin?faces-redirect=true";
+		}else if(u.getRole().equals(2)){
+			return "haendler/Index?faces-redirect=true";
+		}else{
+			return "";
+		}
 	}
 
 	public User getU() {
