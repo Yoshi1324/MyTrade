@@ -20,10 +20,12 @@
 	<h:form>
 		<p:growl id="messages" />
 		<p:menubar>
-			<p:menuitem value="Mein Portfolio" url="/faces/haendler/Portfolio.xhtml?" />
-			<p:menuitem value="Offene Aufträge" url="/faces/haendler/Auftraege.xhtml" />
+			<p:menuitem value="Mein Portfolio"
+				url="/faces/haendler/Portfolio.xhtml?" />
+			<p:menuitem value="Offene Aufträge"
+				url="/faces/haendler/Auftraege.xhtml" />
 			<p:menuitem value="Administration" url="/faces/admin/Admin.xhtml" />
-			<p:menuitem value="#{homeBean.fullname}" disabled="true"/>
+			<p:menuitem value="#{homeBean.fullname}" disabled="true" />
 
 		</p:menubar>
 	</h:form>
@@ -33,29 +35,33 @@
 
 			<h:outputLabel value="Aktueller Kontostand: " />
 			<h:outputText value="#{meinPortfolioBean.kontostand}" />
-			<h:dataTable value="#{meinPortfolioBean.list}" var="l"
+			<h:dataTable value="#{homeBean.u.aktien}" var="aktie"
 				styleClass="order-table" headerClass="order-table-header"
 				rowClasses="order-table-odd-row,order-table-even-row">
 
 				<h:column>
-					<f:facet name="header">Aktien</f:facet>
-    				#{l.name}
-    			</h:column>
-
-				<h:column>
 					<f:facet name="header">Symbol</f:facet>
-    				#{l.kuerzel}
+    				#{aktie.symbol}
+    			</h:column>
+
+				<h:column>
+					<f:facet name="header">Aktien</f:facet>
+    				#{aktie.name}
+    			</h:column>
+
+				<h:column>
+					<f:facet name="header">Anzahl</f:facet>
+    				#{aktie.menge}
     			</h:column>
 
 				<h:column>
 					<f:facet name="header">Letzte Dividende (CHF)</f:facet>
-    				#{l.dividende}
+    				#{aktie.dividende}
     			</h:column>
 
 				<h:column>
-					<f:facet name="header">Letzte Dividende (CHF)</f:facet>
 					<h:commandLink value="verkaufen"
-						action="${auftragErfassenBean.verkaufen(l)}" />
+						action="${auftragErfassenBean.verkaufen(aktie)}" />
 				</h:column>
 
 			</h:dataTable>

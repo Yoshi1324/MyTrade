@@ -15,7 +15,7 @@ public class HomeBean {
 	private String user;
 	private String password;
 	private TradingService tService;
-	private String  fullname;
+	private String fullname;
 
 	public HomeBean(){
 		try {
