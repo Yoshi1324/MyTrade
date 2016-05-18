@@ -52,17 +52,19 @@ public class TradingService {
 
     public synchronized void createProduct(Stock product, int stock) {
     	Connection connection = connectionPool.getConnection();
-
         try {
             connection.setAutoCommit(false);
             StockDAO productDAO = new StockDAO();
             productDAO.useConnection(connection);
 
             productDAO.insert(product);
-
-            for (int i = 0; i < stock; i++) {
-                // Create initial orders...
-            }
+            
+            OrderDAO orderDAO = new OrderDAO();
+            Order order= new Order();
+            order.setProduct(product);
+            order.setPrice(product.getNominalPrice());
+            orderDAO.useConnection(connection);
+            orderDAO.createOrder(order, stock);
 
             connection.commit();
         } catch (SQLException e) {
