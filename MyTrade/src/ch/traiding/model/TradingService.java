@@ -47,6 +47,14 @@ public class TradingService {
 
     }
     
+    public synchronized void newUser(User user) throws SQLException{
+    	Connection connection = connectionPool.getConnection();
+
+    	UserDAO userDAO = new UserDAO();
+    	userDAO.useConnection(connection);
+    	userDAO.insert(user);
+    }
+    
     public synchronized void payDividend() {
     }
 
