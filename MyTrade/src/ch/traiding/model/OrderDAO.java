@@ -23,7 +23,7 @@ public class OrderDAO {
 	        try {
 	            statement = connection.prepareStatement(insert);
 	            statement.setString(1, order.getProduct().getSymbol());
-	            if(order.getSeller().getId() == null){
+	            if(order.getSeller() == null){
 	            	statement.setInt(2, 1);
 	            }else{
 	                statement.setInt(2, order.getSeller().getId());	

@@ -6,7 +6,7 @@ package ch.traiding.model;
  */
 public class Order {
 
-    private Integer id;
+    private Integer id = 0;
 
     private Stock product;
 
