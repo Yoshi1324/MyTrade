@@ -17,7 +17,7 @@ public class StockDAO {
             throw new IllegalArgumentException("You must call useConnection before interacting with the database");
         }
 
-        String insert = "INSERT INTO aktien (Symbol, Bezeichnung, NormalPreis, Preis, Dividende) VALUES(?,?,?,?)";
+        String insert = "INSERT INTO aktien (Symbol, Bezeichnung, NormalPreis, Preis, Dividende) VALUES(?,?,?,?,?)";
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(insert);

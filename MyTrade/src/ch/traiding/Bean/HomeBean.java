@@ -3,8 +3,10 @@ package ch.traiding.Bean;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.naming.NoPermissionException;
 
 import ch.traiding.model.*;
+import ch.traiding.util.ConnectionPoolingImplementation;
 
 @ManagedBean(name = "homeBean")
 @ApplicationScoped
@@ -15,6 +17,12 @@ public class HomeBean {
 	private TradingService tService;
 
 	public HomeBean(){
+		try {
+			ConnectionPoolingImplementation.getInstance(1,10);
+		} catch (NoPermissionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		tService = new TradingService();
 	}
 	
