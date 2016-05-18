@@ -84,7 +84,7 @@ public class UserDAO {
     }
 
     public void insert(User user) throws SQLException {
-        String insert = "INSERT INTO T_USER (Benutzername, Name, Vorname, Passwort, Rolle, AccountBalance) VALUES(?,?,?,?,?,?)";
+        String insert = "INSERT INTO user (Benutzername, Name, Vorname, Passwort_Hash, Rolle, AccountBalance) VALUES(?,?,?,?,?,?)";
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(insert);
