@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
 import javax.naming.NoPermissionException;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Connection Pool implementation.
@@ -20,6 +22,8 @@ public class ConnectionPoolingImplementation implements ConnectionPooling {
 
 	private final int MIN_CONNECTIONS;
 	private final int MAX_CONNECTIONS;
+	
+	private String ipAddress;
 
 	private List<EnhancedConnection> freePool;
 	private List<EnhancedConnection> busyPool;
@@ -27,7 +31,7 @@ public class ConnectionPoolingImplementation implements ConnectionPooling {
 	// TODO: Dependency inject (Property file)
 	final String treiberName   = "com.mysql.jdbc.Driver";
 	// TODO: Property file
-	final String connectionURL = "jdbc:mysql://127.0.0.1:3306/mytrade"; 
+	final String connectionURL = "jdbc:mysql://" + ipAddress + ":3306/mytrade"; 
 
 	// TODO: Security: store username and pwd externally
 	private String myUserName    = "myTrade";
@@ -35,6 +39,12 @@ public class ConnectionPoolingImplementation implements ConnectionPooling {
 
 
 	private ConnectionPoolingImplementation(int min, int max) throws ClassNotFoundException, SQLException {
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		ipAddress = request.getHeader("X-FORWARDED-FOR");
+		if (ipAddress == null) {
+		    ipAddress = request.getRemoteAddr();
+		}
+		System.out.println("ipAddress:" + ipAddress);
 		Class.forName(treiberName);
 
 		MIN_CONNECTIONS = min;
