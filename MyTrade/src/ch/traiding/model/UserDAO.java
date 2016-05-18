@@ -56,8 +56,8 @@ public class UserDAO {
     public ArrayList<Stock> getAllAktienforUser(User user) throws SQLException{
     	Stock aktie;
     	ArrayList<Stock> aktienList = new ArrayList<Stock>();
-    	String insert = "SELECT aktien.Symbol, aktien.Bezeichnung, aktien.NormalPreis, aktien.Dividende FROM useraktien"
-    			+ " LEFT JOIN aktien ON useraktien.User_ID = " + user.getId() + " AND useraktien.Symbol = aktien.Symbol";
+    	String insert = "SELECT aktien.Symbol, aktien.Bezeichnung, aktien.NormalPreis, aktien.Dividende, useraktien.Menge FROM useraktien"
+    			+ " INNER JOIN aktien ON useraktien.User_ID = " + user.getId() + " AND useraktien.Symbol = aktien.Symbol";
         PreparedStatement statement = null;
 
         try {
@@ -73,6 +73,8 @@ public class UserDAO {
                 aktie.setNominalPrice(result.getDouble("aktien.NormalPreis"));
                 aktie.setPrice(result.getDouble("aktien.NormalPreis"));
                 aktie.setDividend(result.getDouble("aktien.Dividende"));
+                aktie.setMenge(result.getInt("useraktien.Menge"));
+                System.out.println(aktie.getSymbol());
                 aktienList.add(aktie);
             } 
             return aktienList;
