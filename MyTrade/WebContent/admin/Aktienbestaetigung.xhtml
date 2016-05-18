@@ -9,47 +9,48 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:h="http://java.sun.com/jsf/html">
-<head>
-<link rel="stylesheet" type="text/css" href="../../css/style.css"
-	title="Standard" />
-<title>Aktien erfassen</title>
-</head>
-<body>
-	<div id="mutterBox">
-		<f:view>Aktie erfassen</f:view>
-	</div>
-	<div id="meldungBox">
-		<h:outputText value="#{meldungFormBean.aktuelleMeldung}" />
-		<!-- 		<h:outputText value="#{aktienFormBean.name}" /> -->
-	</div>
+<h:head>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css"
+		title="Standard" />
+	<title>Aktien erfassen</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:growl id="messages" />
+		<p:menubar>
+			<p:menuitem value="Administration" url="/faces/admin/Admin.xhtml" />
+
+		</p:menubar>
+	</h:form>
 
 	<div id="inhaltBox">
 		<h:form>
 			<h:panelGrid>
-				<h:outputLabel for="fieldName" value="Name" />
+				<h:outputLabel for="fieldName" value="Name: " />
 				<h:outputLabel id="fieldName" value="#{newAktienBean.aktie.name}" />
 
-				<h:outputLabel for="fieldKuerzel" value="Kürzel" />
-				<h:outputLabel id="fieldKuerzel" value="#{newAktienBean.aktie.symbol}" />
+				<h:outputLabel for="fieldKuerzel" value="Kürzel: " />
+				<h:outputLabel id="fieldKuerzel"
+					value="#{newAktienBean.aktie.symbol}" />
 
-				<h:outputLabel for="fieldPreis" value="Normalpreis (CHF)" />
+				<h:outputLabel for="fieldPreis" value="Normalpreis (CHF): " />
 				<h:outputLabel id="fieldPreis"
 					value="#{newAktienBean.aktie.nominalPrice}" />
 
-				<h:outputLabel for="fieldDividende" value="Dividende" />
+				<h:outputLabel for="fieldDividende" value="Dividende: " />
 				<h:outputLabel id="fieldDividende"
 					value="#{newAktienBean.aktie.dividend}" />
 
-				<h:outputLabel for="fieldAnzahl" value="Stückanzahl" />
+				<h:outputLabel for="fieldAnzahl" value="Stückanzahl: " />
 				<h:outputLabel id="fieldAnzahl" value="#{newAktienBean.menge}" />
 			</h:panelGrid>
 
 			<h:commandButton value="Zurück" action="#{newAktienBean.back2}"
 				ajax="false" />
-			<h:commandButton value="Speichern" action="#{newAktienBean.SaveAktie}"
-				ajax="false" />
+			<h:commandButton value="Speichern"
+				action="#{newAktienBean.SaveAktie}" ajax="false" />
 
 		</h:form>
 	</div>
-</body>
+</h:body>
 </html>
