@@ -15,6 +15,7 @@ public class HomeBean {
 	private String user;
 	private String password;
 	private TradingService tService;
+	private String  fullname;
 
 	public HomeBean(){
 		try {
@@ -42,6 +43,14 @@ public class HomeBean {
 	}
 	
 
+
+	public String getFullname() {
+		return u.getVorname() + " " + u.getName();
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
 
 	public User getU() {
 		return u;
