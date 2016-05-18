@@ -16,11 +16,12 @@ import ch.traiding.util.ConnectionPoolingImplementation;
 public class TradingService {
 	String connectionURL = "jdbc:mysql://localhost/myTrade";
 	ConnectionPoolingImplementation connectionPool;
+	Connection connection;
 	
     public TradingService() {
 
 		try {
-			connectionPool = ConnectionPoolingImplementation.getInstance(1,5);
+			connectionPool = ConnectionPoolingImplementation.getInstance(1,10);
 		} catch (NoPermissionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -28,7 +29,7 @@ public class TradingService {
     }
 
     public synchronized User login(String user, String password) {
-        Connection connection = connectionPool.getConnection();
+        connection = connectionPool.getConnection();
 
         try {
             UserDAO userDAO = new UserDAO();
@@ -43,6 +44,7 @@ public class TradingService {
             throw new RuntimeException(e);
         } finally {
         	connectionPool.putConnection(connection);
+        	connection = null;
         }
 
     }
@@ -51,7 +53,7 @@ public class TradingService {
     }
 
     public synchronized void createProduct(Stock product, int stock) {
-        Connection connection = connectionPool.getConnection();
+    	connection = connectionPool.getConnection();
 
         try {
             connection.setAutoCommit(false);
@@ -68,7 +70,8 @@ public class TradingService {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-        	connectionPool.putConnection(connection);;
+        	connectionPool.putConnection(connection);
+        	connection = null;
         }
 
     }
