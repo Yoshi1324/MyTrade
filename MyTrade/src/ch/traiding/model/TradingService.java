@@ -27,7 +27,7 @@ public class TradingService {
 		}
     }
 
-    public User login(String user, String password) {
+    public synchronized User login(String user, String password) {
         Connection connection = connectionPool.getConnection();
 
         try {
@@ -47,11 +47,11 @@ public class TradingService {
 
     }
     
-    public void payDividend() {
+    public synchronized void payDividend() {
     }
 
-    public void createProduct(Stock product, int stock) {
-        Connection connection =connectionPool .getConnection();
+    public synchronized void createProduct(Stock product, int stock) {
+        Connection connection = connectionPool.getConnection();
 
         try {
             connection.setAutoCommit(false);
@@ -73,10 +73,10 @@ public class TradingService {
 
     }
 
-    public void buy(Long orderId) {
+    public synchronized void buy(Long orderId) {
     }
 
-    public void sell(Long productId, double price) {
+    public synchronized void sell(Long productId, double price) {
     }
 
     public List getOrderList() {

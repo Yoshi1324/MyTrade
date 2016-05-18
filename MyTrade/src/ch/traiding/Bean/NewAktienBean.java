@@ -43,18 +43,18 @@ public class NewAktienBean {
 
 	public String SaveAktie(){
 		tradingService.createProduct(aktie, menge);
-		return "/admin/Admin?faces-redirect=true";
+		return "/faces/admin/Admin?faces-redirect=true";
 	}
 	
 	public String next(){
-		return "/admin/Aktienbestaetigung?faces-redirect=true";
+		return "/faces/admin/Aktienbestaetigung?faces-redirect=true";
 	}
 	
 	public String back(){
-		return "/admin/Admin?faces-redirect=true";
+		return "/faces/admin/Admin?faces-redirect=true";
 	}
 	
 	public String back2(){
-		return "/admin/Aktienerfassung?faces-redirect=true";
+		return "/faces/admin/Aktienerfassung?faces-redirect=true";
 	}
 }

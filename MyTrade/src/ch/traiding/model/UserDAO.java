@@ -19,7 +19,7 @@ public class UserDAO {
     }
     
     public User login(String user, String password) throws SQLException {
-        String insert = "SELECT User_ID, Benutzername, Name, Vorname, Passwort, Rolle, AccountBalance FROM user WHERE Benutzername=? AND Passwort=?";
+        String insert = "SELECT User_ID, Benutzername, Name, Vorname, Passwort_Hash, Rolle, AccountBalance FROM user WHERE Benutzername=? AND Passwort_Hash=?";
         PreparedStatement statement = null;
 
         try {
@@ -31,13 +31,13 @@ public class UserDAO {
             // OK, es hat ein Ergebnis
             if (result.next()) {
                 User u = new User();
-                u.setId(Integer.valueOf(result.getInt(1)));
-                u.setUsername(result.getString(2));
-                u.setName(result.getString(3));
-                u.setVorname(result.getString(4));
-                u.setPassword(result.getString(5));
-                u.setRole(result.getInt(6));
-                u.setAccountBalance(result.getDouble(7));
+                u.setId(Integer.valueOf(result.getInt("User_ID")));
+                u.setUsername(result.getString("Benutzername"));
+                u.setName(result.getString("Name"));
+                u.setVorname(result.getString("Vorname"));
+                u.setPassword(result.getString("Passwort_Hash"));
+                u.setRole(result.getInt("Rolle"));
+                u.setAccountBalance(result.getDouble("AccountBalance"));
                 return u;
             } else {
                 return null; // Kein passendes Login gefunden
