@@ -52,12 +52,11 @@
 				<p:inputText id="fieldAnzahl" value="#{newAktienBean.menge}">
 					<f:validateLongRange minimum="1" maximum="100" />
 				</p:inputText>
+				<p:button value="Zurück" outcome="/faces/admin/Admin.xhtml"
+					ajax="false" />
+				<p:commandButton value="weiter" action="#{newAktienBean.next}"
+					ajax="false" />
 			</h:panelGrid>
-
-			<h:commandButton value="Zurück" outcome="/faces/admin/Admin.xhtml"
-				ajax="false" />
-			<h:commandButton value="weiter" action="#{newAktienBean.next}"
-				ajax="false" />
 
 			<h:messages for="fieldName" style="color:red;margin:8px;" />
 			<h:messages for="fieldKuerzel" style="color:red;margin:8px;" />
