@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+	Author:	Ryan Brun
+	Date:	17.05.2016 
+ -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css"
+		title="Standard" />
+	<title>Aktien erfassen</title>
+</h:head>
+<h:body>
+
+	<h:form>
+		<p:growl id="messages" />
+		<p:menubar>
+			<p:menuitem value="Mein Portfolio"
+				url="/faces/haendler/Portfolio.xhtml?" />
+			<p:menuitem value="Offene Aufträge"
+				url="/faces/haendler/Auftraege.xhtml" />
+			<p:menuitem value="Administration" url="/faces/admin/Admin.xhtml" />
+			<p:menuitem value="Benutzer" url="http://www.primefaces.org" />
+
+		</p:menubar>
+	</h:form>
+
+	<div id="inhaltBox">
+		<h:form>
+			<h:panelGrid>
+				<h:outputLabel for="fieldSymbol" value="Symbol: " />
+				<h:outputLabel id="fieldSymbol" value="#{benutzerFormBean.name}" />
+
+				<h:outputLabel for="fieldAktienName" value="Aktie: " />
+				<h:outputLabel id="fieldAktienName"
+					value="#{benutzerFormBean.vorname}" />
+
+				<h:outputLabel for="fieldPreis" value="Preis: " />
+				<h:outputLabel id="fieldPreis" value="#{benutzerFormBean.login}" />
+
+				<h:outputLabel for="fieldStueckzahl" value="Stückzahl: " />
+				<h:outputLabel id="fieldStueckzahl"
+					value="#{benutzerFormBean.login}" />
+			</h:panelGrid>
+
+			<h:commandButton value="Zurück" action="#{benutzerFormBean.back2}"
+				ajax="false" />
+			<h:commandButton value="Speichern"
+				action="#{benutzerFormBean.saveUser}" ajax="false" />
+
+		</h:form>
+	</div>
+</h:body>
+</html>
