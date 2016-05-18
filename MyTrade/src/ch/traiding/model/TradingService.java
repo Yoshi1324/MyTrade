@@ -56,6 +56,14 @@ public class TradingService {
     }
     
     public synchronized void payDividend() {
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
     }
 
     public synchronized void createProduct(Stock product, int stock) {
@@ -100,12 +108,6 @@ public class TradingService {
             orders.add(o);
         }
         return orders;
-    }
-
-    public List getProducts(Long userId) {
-
-        // TODO implement DB code to read all products the user owns
-        return null;
     }
 
     public void execute(Long orderId) {

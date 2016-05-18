@@ -2,7 +2,9 @@ package ch.traiding.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -32,6 +34,34 @@ public class StockDAO {
         }
     }
 
+    public ArrayList<Stock> getAllAktien() throws SQLException{
+    	ArrayList<Stock> aktienList = new ArrayList<Stock>();
+    	Stock aktie;
+    	String insert = "SELECT Symbol, Bezeichnung, NormalPreis, Preis, Dividende FROM aktien";
+        PreparedStatement statement = null;
+
+        try {
+            statement = connection.prepareStatement(insert);
+
+            ResultSet result = statement.executeQuery();
+
+            // OK, es hat ein Ergebnis
+            while (result.next()) {
+                aktie = new Stock();
+                aktie.setSymbol(result.getString("Symbol"));
+                aktie.setName(result.getString("Bezeichnung"));
+                aktie.setNominalPrice(result.getDouble("NormalPreis"));
+                aktie.setPrice(result.getDouble("Preis"));
+                aktie.setDividend(result.getDouble("Dividende"));
+                System.out.println(aktie.getSymbol());
+                aktienList.add(aktie);
+            } 
+            return aktienList;
+        } finally {
+            statement.close();
+        }
+    }
+    
     public void useConnection(Connection connection) {
         this.connection = connection;
     }
