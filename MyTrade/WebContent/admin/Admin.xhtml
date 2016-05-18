@@ -19,15 +19,16 @@
 	<h:form>
 		<p:growl id="messages" />
 		<p:menubar>
-			<p:menuitem value="Administration" url="/faces/admin/Admin.xhtml" />
-
+			<p:menuitem value="#{homeBean.fullname}" disabled="true" />
 		</p:menubar>
 	</h:form>
 
 	<div id="inhaltBox">
-		<h:outputLink value="/MyTrade/faces/admin/Aktienerfassung.xhtml">Aktien erfassen</h:outputLink>
+		<p:link outcome="Aktienerfassung?faces-redirect=true"
+			value="Aktien erfassen" />
 		<br />
-		<h:outputLink value="/MyTrade/faces/admin/Benutzererfassen.xhtml">Benutzer erfassen</h:outputLink>
+		<p:link outcome="Benutzererfassen?faces-redirect=true"
+			value="Benutzer erfassen" />
 		<br />
 		<h:form>
 			<p:commandLink action="#{dividendenFormBean.ausschuetten}"

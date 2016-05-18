@@ -25,31 +25,31 @@
 
 	<div id="inhaltBox">
 		<h:form>
-			<h:panelGrid>
-				<h:outputLabel for="fieldName" value="Name: " />
-				<h:outputLabel id="fieldName" value="#{newAktienBean.aktie.name}" />
+			<h:panelGrid columns="2">
+				<p:outputLabel for="fieldName" value="Name: " />
+				<p:outputLabel id="fieldName" value="#{newAktienBean.aktie.name}" />
 
-				<h:outputLabel for="fieldKuerzel" value="Kürzel: " />
-				<h:outputLabel id="fieldKuerzel"
+				<p:outputLabel for="fieldKuerzel" value="Kürzel: " />
+				<p:outputLabel id="fieldKuerzel"
 					value="#{newAktienBean.aktie.symbol}" />
 
-				<h:outputLabel for="fieldPreis" value="Normalpreis (CHF): " />
-				<h:outputLabel id="fieldPreis"
+				<p:outputLabel for="fieldPreis" value="Normalpreis (CHF): " />
+				<p:outputLabel id="fieldPreis"
 					value="#{newAktienBean.aktie.nominalPrice}" />
 
-				<h:outputLabel for="fieldDividende" value="Dividende: " />
-				<h:outputLabel id="fieldDividende"
+				<p:outputLabel for="fieldDividende" value="Dividende: " />
+				<p:outputLabel id="fieldDividende"
 					value="#{newAktienBean.aktie.dividend}" />
 
-				<h:outputLabel for="fieldAnzahl" value="Stückanzahl: " />
-				<h:outputLabel id="fieldAnzahl" value="#{newAktienBean.menge}" />
+				<p:outputLabel for="fieldAnzahl" value="Stückanzahl: " />
+				<p:outputLabel id="fieldAnzahl" value="#{newAktienBean.menge}" />
+
+
+				<p:button outcome="/faces/admin/Aktienerfassung?faces-redirect=true"
+					value="Zurück" />
+				<p:commandButton value="Speichern"
+					action="#{newAktienBean.SaveAktie}" ajax="false" />
 			</h:panelGrid>
-
-			<h:commandButton value="Zurück" action="#{newAktienBean.back2}"
-				ajax="false" />
-			<h:commandButton value="Speichern"
-				action="#{newAktienBean.SaveAktie}" ajax="false" />
-
 		</h:form>
 	</div>
 </h:body>

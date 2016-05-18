@@ -64,7 +64,7 @@ public class TradingService {
             connection.setAutoCommit(false);
             StockDAO productDAO = new StockDAO();
             productDAO.useConnection(connection);
-
+            product.setPrice(product.getNominalPrice());
             productDAO.insert(product);
             
             OrderDAO orderDAO = new OrderDAO();

@@ -23,25 +23,26 @@
 	</h:form>
 	<div id="inhaltBox">
 		<h:form>
-			<h:panelGrid>
-				<h:outputLabel for="fieldName" value="Name" />
-				<h:outputLabel id="fieldName" value="#{benutzerFormBean.name}" />
+			<h:panelGrid columns="2">
+				<p:outputLabel for="fieldName" value="Name" />
+				<p:outputLabel id="fieldName" value="#{newBenutzerBean.user.name}" />
 
-				<h:outputLabel for="fieldVorname" value="Vorname" />
-				<h:outputLabel id="fieldVorname" value="#{benutzerFormBean.vorname}" />
+				<p:outputLabel for="fieldVorname" value="Vorname" />
+				<p:outputLabel id="fieldVorname"
+					value="#{newBenutzerBean.user.vorname}" />
 
-				<h:outputLabel for="fieldLogin" value="Login" />
-				<h:outputLabel id="fieldLogin" value="#{benutzerFormBean.login}" />
+				<p:outputLabel for="fieldLogin" value="Benutzername" />
+				<p:outputLabel id="fieldLogin"
+					value="#{newBenutzerBean.user.username}" />
 
-				<h:outputLabel for="fieldRolle" value="Rolle" />
-				<h:outputLabel id="fieldRolle" value="#{benutzerFormBean.rolle}" />
+				<p:outputLabel for="fieldRolle" value="Rolle" />
+				<p:outputLabel id="fieldRolle" value="#{newBenutzerBean.user.role}" />
+
+
+				<p:button outcome="/faces/admin/Benutzererfassen?faces-redirect=true" value="Zurück"/>
+				<p:commandButton value="Speichern"
+					action="#{newBenutzerBean.saveUser}" ajax="false" />
 			</h:panelGrid>
-
-			<h:commandButton value="Zurück" action="#{benutzerFormBean.back2}"
-				ajax="false" />
-			<h:commandButton value="Speichern"
-				action="#{benutzerFormBean.saveUser}" ajax="false" />
-
 		</h:form>
 	</div>
 </h:body>

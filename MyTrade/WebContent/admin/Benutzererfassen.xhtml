@@ -24,30 +24,34 @@
 	<div id="inhaltBox">
 		<f:view>Benutzer Erfassen</f:view>
 		<h:form>
-			<h:panelGrid>
-				<h:outputLabel for="fieldName" value="Name" />
-				<h:inputText id="fieldName" value="#{benutzerFormBean.name}" />
+			<h:panelGrid columns="2">
+				<p:outputLabel for="fieldName" value="Name" />
+				<p:inputText id="fieldName" value="#{newBenutzerBean.user.name}" />
 
-				<h:outputLabel for="fieldVorname" value="Vorname" />
-				<h:inputText id="fieldVorname" value="#{benutzerFormBean.vorname}" />
+				<p:outputLabel for="fieldVorname" value="Vorname" />
+				<p:inputText id="fieldVorname"
+					value="#{newBenutzerBean.user.vorname}" />
 
-				<h:outputLabel for="fieldLogin" value="Login" />
-				<h:inputText id="fieldLogin" value="#{benutzerFormBean.login}" />
+				<p:outputLabel for="fieldLogin" value="Benutzername" />
+				<p:inputText id="fieldLogin"
+					value="#{newBenutzerBean.user.username}" />
 
-				<h:outputLabel for="fieldRolle" value="Rolle" />
-				<h:selectOneMenu value="#{benutzerFormBean.rolle}">
-					<f:selectItems value="#{benutzerFormBean.rollenListe}" />
-				</h:selectOneMenu>
+				<p:outputLabel for="fieldRolle" value="Rolle" />
+				<p:selectOneMenu id="fieldRolle"
+					value="#{newBenutzerBean.user.role}" style="width:125px">
+					<f:selectItem itemLabel="Händler" itemValue="2" />
+					<f:selectItem itemLabel="Admin" itemValue="1" />
+				</p:selectOneMenu>
+
+
+				<p:outputLabel for="fieldPasswort" value="Passwort" />
+				<p:password id="fieldPasswort"
+					value="#{newBenutzerBean.user.password}" />
+
+				<p:button outcome="/faces/admin/Admin?faces-redirect=true" value="Zurück"/>
+				<p:commandButton value="Weiter" action="#{newBenutzerBean.next}"
+					ajax="false" />
 			</h:panelGrid>
-
-			<h:outputLabel for="fieldPasswort" value="Passwort" />
-			<h:inputSecret id="fieldPasswort"
-				value="#{benutzerFormBean.passwort}" />
-
-			<h:commandButton value="Zurück" action="#{benutzerFormBean.back}"
-				ajax="false" />
-			<h:commandButton value="Weiter" action="#{benutzerFormBean.next}"
-				ajax="false" />
 		</h:form>
 
 		<h:messages for="fieldName" style="color:red;margin:8px;" />
