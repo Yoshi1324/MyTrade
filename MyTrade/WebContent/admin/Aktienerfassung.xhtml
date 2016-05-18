@@ -47,37 +47,37 @@
 			<h:form>
 				<h:panelGrid>
 					<h:outputLabel for="fieldName" value="Name" />
-					<h:inputText id="fieldName" value="#{aktienFormBean.name}">
+					<h:inputText id="fieldName" value="#{newAktienBean.aktie.name}">
 						<f:validateLength minimum="3" maximum="20" />
 						<f:validateRegex pattern="[a-zA-Z]*" />
 					</h:inputText>
 
 					<h:outputLabel for="fieldKuerzel" value="Kürzel" />
-					<h:inputText id="fieldKuerzel" value="#{aktienFormBean.kuerzel}">
+					<h:inputText id="fieldKuerzel" value="#{newAktienBean.aktie.symbol}">
 						<f:validateLength minimum="4" maximum="4" />
 						<f:validateRegex pattern="[a-zA-Z]*" />
 					</h:inputText>
 
 					<h:outputLabel for="fieldPreis" value="Normalpreis (CHF)" />
-					<h:inputText id="fieldPreis" value="#{aktienFormBean.nominalpreis}">
+					<h:inputText id="fieldPreis" value="#{newAktienBean.aktie.nominalPrice}">
 						<f:validateDoubleRange minimum="0.0" maximum="5000.0" />
 					</h:inputText>
 
 					<h:outputLabel for="fieldDividende" value="Dividende" />
 					<h:inputText id="fieldDividende"
-						value="#{aktienFormBean.dividende}">
+						value="#{newAktienBean.aktie.dividend}">
 						<f:validateDoubleRange minimum="0.0" maximum="50.0" />
 					</h:inputText>
 
 					<h:outputLabel for="fieldAnzahl" value="Stückanzahl" />
-					<h:inputText id="fieldAnzahl" value="#{aktienFormBean.anzahl}">
+					<h:inputText id="fieldAnzahl" value="#{newAktienBean.menge}">
 						<f:validateLongRange minimum="1" maximum="100" />
 					</h:inputText>
 				</h:panelGrid>
 
-				<h:commandButton value="Zurück" action="#{aktienFormBean.back}"
+				<h:commandButton value="Zurück" action="#{newAktienBean.back}"
 					ajax="false" />
-				<h:commandButton value="weiter" action="#{aktienFormBean.next}"
+				<h:commandButton value="weiter" action="#{newAktienBean.next}"
 					ajax="false" />
 
 				<h:messages for="fieldName" style="color:red;margin:8px;" />

@@ -27,26 +27,26 @@
 		<h:form>
 			<h:panelGrid>
 				<h:outputLabel for="fieldName" value="Name" />
-				<h:outputLabel id="fieldName" value="#{aktienFormBean.name}" />
+				<h:outputLabel id="fieldName" value="#{newAktienBean.aktie.name}" />
 
 				<h:outputLabel for="fieldKuerzel" value="Kürzel" />
-				<h:outputLabel id="fieldKuerzel" value="#{aktienFormBean.kuerzel}" />
+				<h:outputLabel id="fieldKuerzel" value="#{newAktienBean.aktie.symbol}" />
 
 				<h:outputLabel for="fieldPreis" value="Normalpreis (CHF)" />
 				<h:outputLabel id="fieldPreis"
-					value="#{aktienFormBean.nominalpreis}" />
+					value="#{newAktienBean.aktie.nominalPrice}" />
 
 				<h:outputLabel for="fieldDividende" value="Dividende" />
 				<h:outputLabel id="fieldDividende"
-					value="#{aktienFormBean.dividende}" />
+					value="#{newAktienBean.aktie.dividend}" />
 
 				<h:outputLabel for="fieldAnzahl" value="Stückanzahl" />
-				<h:outputLabel id="fieldAnzahl" value="#{aktienFormBean.anzahl}" />
+				<h:outputLabel id="fieldAnzahl" value="#{newAktienBean.menge}" />
 			</h:panelGrid>
 
-			<h:commandButton value="Zurück" action="#{aktienFormBean.back2}"
+			<h:commandButton value="Zurück" action="#{newAktienBean.back2}"
 				ajax="false" />
-			<h:commandButton value="Speichern" action="#{aktienFormBean.save}"
+			<h:commandButton value="Speichern" action="#{newAktienBean.SaveAktie}"
 				ajax="false" />
 
 		</h:form>

@@ -20,12 +20,15 @@ public class HomeBean {
 	
 	public String login(){
 		u = tService.login(user, password);
-		
-		if(u.getRole().equals(1)){
-			return "/admin/Admin?faces-redirect=true";
-		}else if(u.getRole().equals(2)){
-			return "/haendler/Index?faces-redirect=true";
+	System.out.println(u.getRole());
+		if(u.getRole() == 1){
+			System.out.println("test1");
+			return "/faces/admin/Admin?faces-redirect=true";
+		}else if(u.getRole() == 2){
+			System.out.println("test2");
+			return "/faces/haendler/Portfolio?faces-redirect=true";
 		}else{
+			System.out.println("test3");
 			return "";
 		}
 	}
