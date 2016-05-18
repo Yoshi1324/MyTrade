@@ -15,6 +15,8 @@ public class Stock {
     private double price;
 
     private double dividend;
+    
+    private int menge;
 
     public double getDividend() {
         return dividend;
@@ -55,4 +57,12 @@ public class Stock {
     public void setSymbol(String symbol) {
         this.symbol = symbol;
     }
+
+	public int getMenge() {
+		return menge;
+	}
+
+	public void setMenge(int menge) {
+		this.menge = menge;
+	}
 }
