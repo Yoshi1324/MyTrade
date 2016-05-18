@@ -40,6 +40,10 @@
 				</h:selectOneMenu>
 			</h:panelGrid>
 
+			<h:outputLabel for="fieldPasswort" value="Passwort" />
+			<h:inputSecret id="fieldPasswort"
+				value="#{benutzerFormBean.passwort}" />
+
 			<h:commandButton value="Zurück" action="#{benutzerFormBean.back}"
 				ajax="false" />
 			<h:commandButton value="Weiter" action="#{benutzerFormBean.next}"
