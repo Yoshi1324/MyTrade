@@ -27,11 +27,21 @@
 			<h:form method="POST">
 				<h:panelGrid>
 					<p:outputLabel for="fieldBenutzername" value="Benutzername:" />
+<<<<<<< HEAD
 					<p:inputText id="fieldBenutzername" value="#{homeBean.user}" required="true"/>
+=======
+					<p:inputText id="fieldBenutzername" value="#{homeBean.user}">
+<!-- 						<f:validateRegex pattern="((?=.*[a-z])(?=.*[0-9]).{1, 8})" />  -->
+>>>>>>> branch 'master' of https://github.com/Yoshi1324/MyTrade/
 						<f:validateRequired />
 
 					<p:outputLabel for="fieldPasswort" value="Passwort:" />
+<<<<<<< HEAD
 					<p:password id="fieldPasswort" value="#{homeBean.password}" required="true"/>
+=======
+					<p:password id="fieldPasswort" value="#{homeBean.password}">
+<!-- 						<f:validateRegex pattern="((?=.*[a-z])(?=.*[0-9]).{1, 8})" /> -->
+>>>>>>> branch 'master' of https://github.com/Yoshi1324/MyTrade/
 						<f:validateRequired />
 						
 				</h:panelGrid>

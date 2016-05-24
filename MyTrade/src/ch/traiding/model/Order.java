@@ -14,6 +14,11 @@ public class Order {
 
     private double price;
 
+    public Order(){
+    	seller = new User();
+    	product = new Stock();
+    }
+    
     public double getPrice() {
         return price;
     }
