@@ -15,7 +15,7 @@ import ch.traiding.util.Dividendenaenderung;
  * @author cme
  */
 public class TradingService {
-	String connectionURL = "jdbc:mysql://localhost/myTrade";
+	//String connectionURL = "jdbc:mysql://localhost/myTrade";
 	ConnectionPoolingImplementation connectionPool;
 	
     public TradingService() {
@@ -57,40 +57,65 @@ public class TradingService {
     }
     
     public synchronized void payDividend() {
-            Connection connection = connectionPool.getConnection();
-    		try {
-    			PreparedStatement preparedStatement = connection
-    					.prepareStatement("SELECT Symbol, Dividende FROM aktie");
-    			ResultSet rs = preparedStatement.executeQuery();
 
-    			StockDAO aktieDao = new StockDAO();
-    			Double neueDividende;
-    			while (rs.next()) {
-    				neueDividende = Dividendenaenderung.neueDividende(
-    						rs.getDouble("dividende"),
-    						Dividendenaenderung.MITTLERE_STREUUNG, 20, 666);
-    				aktieDao.updateAktie(rs.getString("kuerzel"),
-    						neueDividende);
+    	
+		PreparedStatement prepStmt;
+		Connection connection = connectionPool.getConnection();
 
-    				preparedStatement = connection.prepareStatement("UPDATE user "
-    								  + "INNER JOIN useraktien ON user.User_ID=useraktien.fk_benutzerId "
-    								  + "SET kontostand=kontostand+? "
-    							      + "WHERE aktie.kuerzel=?");
-    				preparedStatement.setDouble(1, neueDividende);
-    				preparedStatement.setString(2, rs.getString("kuerzel"));
-    				preparedStatement.executeUpdate();
-    		
+		try {
+		//Dividene aller Aktien neu setzen
+		String getDivQuery = "SELECT * FROM mytrade.aktien";
+		
+			prepStmt = connection.prepareStatement(getDivQuery);
 
-    			preparedStatement.close();
-    			connectionPool.putConnection(connection);
+		ResultSet rs = prepStmt.executeQuery();
+		prepStmt.close();
 
-    			}
-    			
-    			} catch (SQLException sqlEx) {
-    			sqlEx.printStackTrace();
-    			connectionPool.putConnection(connection);
-    		}
-    }
+		if (rs.next()) {
+			double tempDiv;
+			tempDiv = Dividendenaenderung.neueDividende(rs.getDouble("Dividende"), Dividendenaenderung.MITTLERE_STREUUNG,
+					1, 50);
+
+			String divUpdateQuery = "UPDATE aktien SET aktien.Dividende=" + tempDiv + " WHERE aktien.Symbol = '"
+									+ rs.getString("Symbol") + "';";
+			prepStmt = connection.prepareStatement(divUpdateQuery);
+			prepStmt.executeUpdate();
+			prepStmt.close();
+		}
+
+		//AccountBalance berechnen und Updaten
+		String sqlAktQuery = "Select * FROM mytrade.useraktien" + "JOIN aktien ON useraktien.Symbol=aktien.Symbol "
+							+ "JOIN user ON useraktien.User_ID=user.User_ID;";
+
+		prepStmt = connection.prepareStatement(sqlAktQuery);
+		rs = prepStmt.executeQuery();
+		prepStmt.close();
+
+		if (rs.next()) {
+			int tempVoucher;
+			double tempBalance;
+			tempVoucher = rs.getInt("Menge") * rs.getInt("Dividende");
+
+			tempBalance = rs.getDouble("AccountBalance") + tempVoucher;
+
+			String balanceUpdateQuery = "UPDATE useraktien SET aktien.AccountBalance=" + tempBalance
+										+ " WHERE useraktien.UserAktien_ID = '" + rs.getInt("UserAktien_ID") + "';";
+			prepStmt = connection.prepareStatement(balanceUpdateQuery);
+			prepStmt.executeUpdate();
+			prepStmt.close();
+
+			connectionPool.putConnection(connection);
+
+
+		
+		}
+		
+		
+		} catch (SQLException e) {
+			System.out.println("FEEEEEEEEEEEEEEEEEEEEEEEEEEEEHLER beim berechnen der Dividene");
+			e.printStackTrace();
+		}
+}
 
     public synchronized void createProduct(Stock product, int stock) {
     	Connection connection = connectionPool.getConnection();
