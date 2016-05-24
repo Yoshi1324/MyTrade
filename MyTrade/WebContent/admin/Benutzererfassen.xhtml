@@ -26,27 +26,31 @@
 		<h:form>
 			<h:panelGrid columns="2">
 				<p:outputLabel for="fieldName" value="Name" />
-				<p:inputText id="fieldName" value="#{newBenutzerBean.user.name}" />
+				<p:inputText id="fieldName" value="#{newBenutzerBean.user.name}">
+					<f:validateRegex pattern="((?=.*[a-z])(?=.*[0-9]).{1, 15})" />
+				</p:inputText>
 
 				<p:outputLabel for="fieldVorname" value="Vorname" />
-				<p:inputText id="fieldVorname"
-					value="#{newBenutzerBean.user.vorname}" />
+				<p:inputText id="fieldVorname" value="#{newBenutzerBean.user.vorname}">
+					<f:validateRegex pattern="((?=.*[a-z])(?=.*[0-9]).{1, 15})" />
+				</p:inputText>
 
 				<p:outputLabel for="fieldLogin" value="Benutzername" />
-				<p:inputText id="fieldLogin"
-					value="#{newBenutzerBean.user.username}" />
+				<p:inputText id="fieldLogin" value="#{newBenutzerBean.user.username}">
+					<f:validateRegex pattern="((?=.*[a-z])(?=.*[0-9]).{1, 15})" />
+				</p:inputText>
 
 				<p:outputLabel for="fieldRolle" value="Rolle" />
-				<p:selectOneMenu id="fieldRolle"
-					value="#{newBenutzerBean.user.role}" style="width:125px">
+				<p:selectOneMenu id="fieldRolle" value="#{newBenutzerBean.user.role}" style="width:125px">
 					<f:selectItem itemLabel="Händler" itemValue="2" />
 					<f:selectItem itemLabel="Admin" itemValue="1" />
 				</p:selectOneMenu>
 
 
 				<p:outputLabel for="fieldPasswort" value="Passwort" />
-				<p:password id="fieldPasswort"
-					value="#{newBenutzerBean.user.password}" />
+				<p:password id="fieldPasswort" value="#{newBenutzerBean.user.password}">
+					<f:validateRegex pattern="((?=.*[a-z])(?=.*[0-9]).{1, 15})" />
+				</p:password>
 
 				<p:button outcome="/faces/admin/Admin?faces-redirect=true" value="Zurück"/>
 				<p:commandButton value="Weiter" action="#{newBenutzerBean.next}"
