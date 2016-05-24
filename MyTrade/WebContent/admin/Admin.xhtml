@@ -21,31 +21,29 @@
 		<p:menubar>
 			<p:menuitem value="#{homeBean.fullname}" disabled="true" />
 		</p:menubar>
-	</h:form>
 
-	<div id="inhaltBox">
-		<p:link outcome="Aktienerfassung?faces-redirect=true"
-			value="Aktien erfassen" />
-		<br />
-		<p:link outcome="Benutzererfassen?faces-redirect=true"
-			value="Benutzer erfassen" />
-		<br />
-		<h:form>
+		<div id="inhaltBox">
+			<p:link outcome="Aktienerfassung?faces-redirect=true"
+				value="Aktien erfassen" />
+			<br />
+			<p:link outcome="Benutzererfassen?faces-redirect=true"
+				value="Benutzer erfassen" />
+			<br />
 			<!-- 		action="#{dividendenFormBean.ausschuetten}" -->
 			<p:commandLink
 				actionListener="#{ausschuettung.confirmDividendenAusschuettung}"
-				value="Dividenden ausschütten">
+				value="Dividenden ausschütten" update="message">
 				<p:confirm header="Confirmation" message="Sind Sie sicher?"
 					icon="ui-icon-alert" />
 			</p:commandLink>
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
 				<p:commandButton value="Yes" type="button"
-					styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
-					action="#{ausschuettung.ausschuetten}" />
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
 				<p:commandButton value="No" type="button"
 					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			</p:confirmDialog>
-		</h:form>
-	</div>
+
+		</div>
+	</h:form>
 </h:body>
 </html>
