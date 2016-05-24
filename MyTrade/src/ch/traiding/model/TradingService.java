@@ -118,7 +118,7 @@ public class TradingService {
 		}
 }
 
-    public synchronized void createProduct(Stock product, int stock) {
+    public void createProduct(Stock product, int stock) {
     	Connection connection = connectionPool.getConnection();
         try {
             connection.setAutoCommit(false);
@@ -145,7 +145,24 @@ public class TradingService {
 
     public synchronized void buy(Long orderId) {
     }
+    
+    public ArrayList<Order> showOffers(){
+    	Connection connection = connectionPool.getConnection();
 
+        try {
+            OrderDAO orderDAO = new OrderDAO();
+            orderDAO.useConnection(connection);
+            ArrayList<Order> allOrders = orderDAO.getAllOrder();
+            
+            return allOrders;
+
+        } finally {
+        	connectionPool.putConnection(connection);
+        }
+  	
+    	
+    }
+    
     public synchronized void sell(Order order, int menge) {
     	Connection connection = connectionPool.getConnection();
     	
