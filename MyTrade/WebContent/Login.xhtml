@@ -27,16 +27,13 @@
 			<h:form method="POST">
 				<h:panelGrid>
 					<p:outputLabel for="fieldBenutzername" value="Benutzername:" />
-					<p:inputText id="fieldBenutzername" value="#{homeBean.user}">
-						<f:validateRegex pattern="((?=.*[a-z])(?=.*[0-9]).{1, 8})" />
+					<p:inputText id="fieldBenutzername" value="#{homeBean.user}" />
 						<f:validateRequired />
-					</p:inputText>
 
 					<p:outputLabel for="fieldPasswort" value="Passwort:" />
-					<p:password id="fieldPasswort" value="#{homeBean.password}">
-						<f:validateRegex pattern="((?=.*[a-z])(?=.*[0-9]).{1, 8})" />
+					<p:password id="fieldPasswort" value="#{homeBean.password}" />
 						<f:validateRequired />
-					</p:password>
+						
 				</h:panelGrid>
 
 				<p:commandButton value="OK" action="#{homeBean.login()}" />
