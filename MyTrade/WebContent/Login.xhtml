@@ -14,6 +14,37 @@
 		title="Standard" />
 	<title>Login</title>
 </h:head>
+
+
+
+<body>
+	<h:form>
+
+		<p:panel header="My Trade">
+ 
+        <h:panelGrid id="grid" columns="4" cellpadding="5">
+            <h:outputLabel for="fieldBenutzername" value="Benutzername" style="font-weight:bold"/>                    
+            <p:inputText id="fieldBenutzername" value="#{homeBean.user}" required="true"  label="Benutzername"/>
+            <p:message for="fieldBenutzername" />
+             
+ 			<br />
+            
+            <h:outputLabel for="fieldPasswort" value="Passwort" style="font-weight:bold"/>                    
+            <p:password id="fieldPasswort" value="#{homeBean.password}" required="true" label="Passwort"/>
+            
+            <h:outputText value="" />
+            <h:outputText value="" />
+  			<p:commandButton value="OK" ajax="false" validateClient="true" action="#{homeBean.login()}"/>
+        </h:panelGrid>
+ 
+       
+    </p:panel>
+	</h:form>
+
+
+</body>
+
+<!-- 
 <h:body>
 	<div id="mainBox">MyTrade</div>
 	<br />
@@ -43,4 +74,6 @@
 		</h:form>
 	</div>
 </h:body>
+ -->
+ 
 </html>
