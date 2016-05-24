@@ -30,28 +30,28 @@
 			<h:form>
 				<h:outputLabel value="Aktueller Kontostand: " />
 				<h:outputText value="#{meinPortfolioBean.kontostand}" />
-				<p:dataTable value="#{offeneAuftraegeFormBean.auftraege}" var="o"
+				<p:dataTable value="#{offeneAuftraegeFormBean.auftraege}" var="aktie"
 					styleClass="order-table" headerClass="order-table-header"
 					rowClasses="order-table-odd-row,order-table-even-row">
 					<p:column>
 						<f:facet name="header">Symbol</f:facet>
-						<h:outputText value="#{o.symbol}"></h:outputText>
+						<h:outputText value="#{aktie.symbol}"></h:outputText>
 					</p:column>
 
 					<p:column>
 						<f:facet name="header">Aktie</f:facet>
-						<h:outputText value="#{o.name}"></h:outputText>
+						<h:outputText value="#{aktie.name}"></h:outputText>
 					</p:column>
 
 					<p:column>
 						<f:facet name="header">Preis</f:facet>
-						<h:outputText value="#{o.preis}"></h:outputText>
+						<h:outputText value="#{aktie.preis}"></h:outputText>
 					</p:column>
 
 					<p:column>
 						<f:facet name="header">Aktionen</f:facet>
 
-						<h:commandLink action="${offeneAuftraegeFormBean.doAktion(o)}"
+						<h:commandLink action="${offeneAuftraegeFormBean.doAktion(aktie)}"
 							value='${o.user?"stornieren":"kaufen"}'></h:commandLink>
 
 					</p:column>
