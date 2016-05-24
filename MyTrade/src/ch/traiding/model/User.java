@@ -12,7 +12,7 @@ public class User {
 
     public static final String ROLE_ADMIN = "1";
 
-    private Integer id;
+    private int id;
 
     private String username;
     
@@ -99,11 +99,11 @@ public class User {
 		this.vorname = vorname;
 	}
 
-	public Integer getId() {
+	public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 }

@@ -72,7 +72,7 @@ public class OrderDAO {
 		}
 		ArrayList<Order> allOrders = new ArrayList<Order>();
 		Order order;
-		String insert = "SELECT  verkauf.Symbol, verkauf.Preis, verkauf.Verk‰ufer_ID, aktien.Bezeichnung FROM verkauf INNER JOIN aktien WHERE verkauf.symbol=aktien.symbol;";
+		String insert = "SELECT  verkauf.Symbol, verkauf.Preis, verkauf.Verk√§ufer_ID, aktien.Bezeichnung FROM verkauf INNER JOIN aktien WHERE verkauf.symbol=aktien.symbol;";
 		PreparedStatement statement = null;
 		
 		try {
@@ -82,7 +82,7 @@ public class OrderDAO {
 			while (result.next()){
 				order = new Order();
 				order.setPrice(result.getDouble("Preis"));
-				order.getSeller().setId(result.getInt("Verk‰ufer_ID"));
+				order.getSeller().setId(result.getInt("Verk√§ufer_ID"));
 				order.getProduct().setSymbol(result.getString("Symbol"));
 				order.getProduct().setName(result.getString("Bezeichnung"));
 				allOrders.add(order);

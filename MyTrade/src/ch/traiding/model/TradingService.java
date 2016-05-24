@@ -146,23 +146,6 @@ public class TradingService {
     public synchronized void buy(Long orderId) {
     }
     
-    public ArrayList<Order> showOffers(){
-    	Connection connection = connectionPool.getConnection();
-
-        try {
-            OrderDAO orderDAO = new OrderDAO();
-            orderDAO.useConnection(connection);
-            ArrayList<Order> allOrders = orderDAO.getAllOrder();
-            
-            return allOrders;
-
-        } finally {
-        	connectionPool.putConnection(connection);
-        }
-  	
-    	
-    }
-    
     public synchronized void sell(Order order, int menge) {
     	Connection connection = connectionPool.getConnection();
     	
@@ -179,17 +162,21 @@ public class TradingService {
     	
     }
 
-    public List getOrderList() {
+    public synchronized ArrayList<Order> getOrderList() {
         // TODO implement DB code to read all open orders and return them, this is only a fake result here
 
-        List orders = new ArrayList();
-        for (int i = 0; i < 10; i++) {
-            Order o = new Order();
-            o.setId(Integer.valueOf(i));
-            o.setPrice(i);
-            orders.add(o);
+    	Connection connection = connectionPool.getConnection();
+
+        try {
+            OrderDAO orderDAO = new OrderDAO();
+            orderDAO.useConnection(connection);
+            ArrayList<Order> allOrders = orderDAO.getAllOrder();
+            
+            return allOrders;
+
+        } finally {
+        	connectionPool.putConnection(connection);
         }
-        return orders;
     }
 
     public void execute(Long orderId) {
