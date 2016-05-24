@@ -15,7 +15,6 @@
 	<title>Admin</title>
 </h:head>
 <h:body>
-
 	<h:form>
 		<p:growl id="message" showDetail="true" />
 		<p:menubar>
@@ -31,7 +30,7 @@
 			<br />
 			<!-- 		action="#{dividendenFormBean.ausschuetten}" -->
 			<p:commandLink
-				actionListener="#{ausschuettung.confirmDividendenAusschuettung}"
+				actionListener="#{ausschuettung.dividendeAusschuetten}"
 				value="Dividenden ausschütten" update="message">
 				<p:confirm header="Confirmation" message="Sind Sie sicher?"
 					icon="ui-icon-alert" />
@@ -42,7 +41,6 @@
 				<p:commandButton value="No" type="button"
 					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			</p:confirmDialog>
-
 		</div>
 	</h:form>
 </h:body>
