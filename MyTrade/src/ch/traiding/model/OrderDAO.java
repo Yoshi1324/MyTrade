@@ -21,15 +21,38 @@ public class OrderDAO {
 	        String insert = "INSERT INTO verkauf (Symbol, Verkäufer_ID, Preis) VALUES(?,?,?)";
 	        PreparedStatement statement = null;
 	        try {
+	        	System.out.println(order.getProduct().getSymbol());
 	            statement = connection.prepareStatement(insert);
 	            statement.setString(1, order.getProduct().getSymbol());
-	            if(order.getSeller() == null){
-	            	statement.setInt(2, 1);
-	            }else{
-	                statement.setInt(2, order.getSeller().getId());	
-	            }
+	            statement.setInt(2, 1);
 	            statement.setDouble(3, order.getPrice());
 	            statement.executeUpdate();
+	        
+	        } finally {
+	            statement.close();
+	        }
+        }
+    }
+    
+    public void createOrderUser(Order order, int menge) throws SQLException {
+        if (connection == null) {
+            throw new IllegalArgumentException("You must call useConnection before interacting with the database");
+        }
+        
+        for(int i = 0; i < menge; i++){
+	        String insert = "INSERT INTO verkauf (Symbol, Verkäufer_ID, Preis) VALUES(?,?,?)";
+	        PreparedStatement statement = null;
+	        try {
+	        	System.out.println(order.getProduct().getSymbol() + " test");
+	            statement = connection.prepareStatement(insert);
+	            System.out.println(order.getProduct().getSymbol());
+	            statement.setString(1, order.getProduct().getSymbol());
+	            System.out.println(order.getSeller().getId());
+	            statement.setInt(2, order.getSeller().getId());
+	            System.out.println(order.getPrice());
+	            statement.setDouble(3, order.getPrice());
+	            statement.executeUpdate();
+	            connection.commit();
 	        
 	        } finally {
 	            statement.close();

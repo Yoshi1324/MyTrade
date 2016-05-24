@@ -60,6 +60,7 @@ public class TradingService {
 
     	
 		PreparedStatement prepStmt;
+		PreparedStatement whilePrepStmt;
 		Connection connection = connectionPool.getConnection();
 
 		try {
@@ -69,48 +70,48 @@ public class TradingService {
 			prepStmt = connection.prepareStatement(getDivQuery);
 
 		ResultSet rs = prepStmt.executeQuery();
-		prepStmt.close();
 
-		if (rs.next()) {
+		while (rs.next()) {
 			double tempDiv;
 			tempDiv = Dividendenaenderung.neueDividende(rs.getDouble("Dividende"), Dividendenaenderung.MITTLERE_STREUUNG,
 					1, 50);
 
 			String divUpdateQuery = "UPDATE aktien SET aktien.Dividende=" + tempDiv + " WHERE aktien.Symbol = '"
 									+ rs.getString("Symbol") + "';";
-			prepStmt = connection.prepareStatement(divUpdateQuery);
-			prepStmt.executeUpdate();
-			prepStmt.close();
+			whilePrepStmt = connection.prepareStatement(divUpdateQuery);
+			whilePrepStmt.executeUpdate();
+			whilePrepStmt.close();
 		}
-
+		rs.close();
+		prepStmt.close();
 		//AccountBalance berechnen und Updaten
-		String sqlAktQuery = "Select * FROM mytrade.useraktien" + "JOIN aktien ON useraktien.Symbol=aktien.Symbol "
-							+ "JOIN user ON useraktien.User_ID=user.User_ID;";
+		String sqlAktQuery = "Select * FROM mytrade.useraktien JOIN aktien ON useraktien.Symbol=aktien.Symbol "
+							+ "JOIN user ON useraktien.User_ID = user.User_ID;";
 
 		prepStmt = connection.prepareStatement(sqlAktQuery);
 		rs = prepStmt.executeQuery();
-		prepStmt.close();
+		
 
-		if (rs.next()) {
+		while (rs.next()) {
 			int tempVoucher;
 			double tempBalance;
 			tempVoucher = rs.getInt("Menge") * rs.getInt("Dividende");
 
 			tempBalance = rs.getDouble("AccountBalance") + tempVoucher;
 
-			String balanceUpdateQuery = "UPDATE useraktien SET aktien.AccountBalance=" + tempBalance
-										+ " WHERE useraktien.UserAktien_ID = '" + rs.getInt("UserAktien_ID") + "';";
-			prepStmt = connection.prepareStatement(balanceUpdateQuery);
-			prepStmt.executeUpdate();
-			prepStmt.close();
+			String balanceUpdateQuery = "UPDATE user SET user.AccountBalance=" + tempBalance
+										+ " WHERE User_ID = '" + rs.getInt("User_ID") + "';";
+			whilePrepStmt = connection.prepareStatement(balanceUpdateQuery);
+			whilePrepStmt.executeUpdate();
+			whilePrepStmt.close();
 
 			connectionPool.putConnection(connection);
 
 
 		
 		}
-		
-		
+		rs.close();
+		prepStmt.close();
 		} catch (SQLException e) {
 			System.out.println("FEEEEEEEEEEEEEEEEEEEEEEEEEEEEHLER beim berechnen der Dividene");
 			e.printStackTrace();
@@ -152,7 +153,7 @@ public class TradingService {
 			connection.setAutoCommit(false);
 			OrderDAO orderDAO = new OrderDAO();
 			orderDAO.useConnection(connection);
-			orderDAO.createOrder(order, menge);
+			orderDAO.createOrderUser(order, menge);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

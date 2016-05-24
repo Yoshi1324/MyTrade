@@ -25,7 +25,8 @@ public class NewAuftragBean {
 		return "/faces/haendler/Auftragerfassenbestaetigung?faces-redirect=true";
 	}
 	
-	public String StartVerkauf(Stock aktie){
+	public String StartVerkauf(Stock aktie, User u){
+		order.setSeller(u);
 		order.setProduct(aktie);
 		return "/faces/haendler/Auftragerfassen?faces-redirect=true";
 	}
