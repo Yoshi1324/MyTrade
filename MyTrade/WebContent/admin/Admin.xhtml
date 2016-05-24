@@ -17,7 +17,7 @@
 <h:body>
 
 	<h:form>
-		<p:growl id="messages" />
+		<p:growl id="message" showDetail="true" />
 		<p:menubar>
 			<p:menuitem value="#{homeBean.fullname}" disabled="true" />
 		</p:menubar>
@@ -31,8 +31,20 @@
 			value="Benutzer erfassen" />
 		<br />
 		<h:form>
-			<p:commandLink action="#{dividendenFormBean.ausschuetten}"
-				value="Dividenden ausschütten" />
+			<!-- 		action="#{dividendenFormBean.ausschuetten}" -->
+			<p:commandLink
+				actionListener="#{ausschuettung.confirmDividendenAusschuettung}"
+				value="Dividenden ausschütten">
+				<p:confirm header="Confirmation" message="Sind Sie sicher?"
+					icon="ui-icon-alert" />
+			</p:commandLink>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Yes" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+					action="#{ausschuettung.ausschuetten}" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
 		</h:form>
 	</div>
 </h:body>
