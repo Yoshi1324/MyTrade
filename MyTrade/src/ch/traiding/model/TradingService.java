@@ -8,6 +8,7 @@ import javax.naming.NoPermissionException;
 import java.sql.*;
 import ch.traiding.*;
 import ch.traiding.util.ConnectionPoolingImplementation;
+import ch.traiding.util.Dividendenaenderung;
 
 /**
  *
@@ -56,14 +57,39 @@ public class TradingService {
     }
     
     public synchronized void payDividend() {
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
+            Connection connection = connectionPool.getConnection();
+    		try {
+    			PreparedStatement preparedStatement = connection
+    					.prepareStatement("SELECT Symbol, Dividende FROM aktie");
+    			ResultSet rs = preparedStatement.executeQuery();
+
+    			StockDAO aktieDao = new StockDAO();
+    			Double neueDividende;
+    			while (rs.next()) {
+    				neueDividende = Dividendenaenderung.neueDividende(
+    						rs.getDouble("dividende"),
+    						Dividendenaenderung.MITTLERE_STREUUNG, 20, 666);
+    				aktieDao.updateAktie(rs.getString("kuerzel"),
+    						neueDividende);
+
+    				preparedStatement = connection.prepareStatement("UPDATE user "
+    								  + "INNER JOIN useraktien ON user.User_ID=useraktien.fk_benutzerId "
+    								  + "SET kontostand=kontostand+? "
+    							      + "WHERE aktie.kuerzel=?");
+    				preparedStatement.setDouble(1, neueDividende);
+    				preparedStatement.setString(2, rs.getString("kuerzel"));
+    				preparedStatement.executeUpdate();
+    		
+
+    			preparedStatement.close();
+    			connectionPool.putConnection(connection);
+
+    			}
+    			
+    			} catch (SQLException sqlEx) {
+    			sqlEx.printStackTrace();
+    			connectionPool.putConnection(connection);
+    		}
     }
 
     public synchronized void createProduct(Stock product, int stock) {
@@ -94,7 +120,20 @@ public class TradingService {
     public synchronized void buy(Long orderId) {
     }
 
-    public synchronized void sell(Long productId, double price) {
+    public synchronized void sell(Order order, int menge) {
+    	Connection connection = connectionPool.getConnection();
+    	
+    	try {
+			connection.setAutoCommit(false);
+			OrderDAO orderDAO = new OrderDAO();
+			orderDAO.useConnection(connection);
+			orderDAO.createOrder(order, menge);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	
     }
 
     public List getOrderList() {
