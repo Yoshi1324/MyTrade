@@ -33,6 +33,23 @@ public class StockDAO {
             statement.close();
         }
     }
+    
+    public void updateAktie(String symbol, double newDividende) throws SQLException{
+        if (connection == null) {
+            throw new IllegalArgumentException("You must call useConnection before interacting with the database");
+        }
+
+        String insert = "Update aktien (Dividende) VALUES(?) where Symbol=?";
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(insert);
+            statement.setDouble(1, newDividende);
+            statement.setString(2, symbol);
+            statement.executeUpdate();
+        } finally {
+            statement.close();
+        }
+    }
 
     public ArrayList<Stock> getAllAktien() throws SQLException{
     	ArrayList<Stock> aktienList = new ArrayList<Stock>();

@@ -35,6 +35,15 @@ public class User {
 	public void setAktien(ArrayList<Stock> aktien) {
 		Aktien = aktien;
 	}
+	
+	public int getAktienMenge(String symbol){
+		for(int i = 0;i < Aktien.size(); i++){
+			if(Aktien.get(i).equals(symbol)){
+				return Aktien.get(i).getMenge();
+			}
+		}
+		return 0;
+	}
 
 	public User(){
     	

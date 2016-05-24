@@ -16,64 +16,33 @@
 </h:head>
 
 
-
-<body>
-	<h:form>
-
-		<p:panel header="My Trade">
- 
-        <h:panelGrid id="grid" columns="4" cellpadding="5">
-            <h:outputLabel for="fieldBenutzername" value="Benutzername" style="font-weight:bold"/>                    
-            <p:inputText id="fieldBenutzername" value="#{homeBean.user}" required="true"  label="Benutzername"/>
-            <p:message for="fieldBenutzername" />
-             
- 			<br />
-            
-            <h:outputLabel for="fieldPasswort" value="Passwort" style="font-weight:bold"/>                    
-            <p:password id="fieldPasswort" value="#{homeBean.password}" required="true" label="Passwort"/>
-            
-            <h:outputText value="" />
-            <h:outputText value="" />
-  			<p:commandButton value="OK" ajax="false" validateClient="true" action="#{homeBean.login()}"/>
-        </h:panelGrid>
- 
-       
-    </p:panel>
-	</h:form>
-
-
-</body>
-
-<!-- 
 <h:body>
-	<div id="mainBox">MyTrade</div>
-	<br />
-	<div id="meldungBox">
-		<h:outputText value="#{meldungFormBean.aktuelleMeldung}" />
-	</div>
-	<br />
-	<div id="inhaltBox">
-		<h:form method="POST">
-			<h:panelGrid>
-				<p:outputLabel for="fieldBenutzername" value="Benutzername:" />
-				<p:inputText id="fieldBenutzername"
-					value="#{homeBean.user}">
-					<f:validateRequired />
-				</p:inputText>
 
-				<p:outputLabel for="fieldPasswort" value="Passwort:" />
-				<p:password id="fieldPasswort" value="#{homeBean.password}">
-					<f:validateRequired />
-				</p:password>
-			</h:panelGrid>
+	<p:panel header="My Trade">
+		<div id="meldungBox">
+			<h:outputText value="#{meldungFormBean.aktuelleMeldung}" />
+		</div>
+		<br />
+		<div id="inhaltBox">
+			<h:form method="POST">
+				<h:panelGrid>
+					<p:outputLabel for="fieldBenutzername" value="Benutzername:" />
+					<p:inputText id="fieldBenutzername" value="#{homeBean.user}">
+						<f:validateRequired />
+					</p:inputText>
 
-			<p:commandButton value="OK" action="#{homeBean.login()}" />
+					<p:outputLabel for="fieldPasswort" value="Passwort:" />
+					<p:password id="fieldPasswort" value="#{homeBean.password}">
+						<f:validateRequired />
+					</p:password>
+				</h:panelGrid>
 
-			<p:messages for="fieldBenutzername" style="color:red;margin:8px;" />
-			<p:messages for="fieldPasswort" style="color:red;margin:8px;" />
-		</h:form>
-	</div>
+				<p:commandButton value="OK" action="#{homeBean.login()}" />
+
+				<p:messages for="fieldBenutzername" style="color:red;margin:8px;" />
+				<p:messages for="fieldPasswort" style="color:red;margin:8px;" />
+			</h:form>
+		</div>
+	</p:panel>
 </h:body>
- -->
- 
 </html>

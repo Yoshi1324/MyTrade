@@ -32,7 +32,7 @@
 		<h:form>
 
 			<h:outputLabel value="Aktueller Kontostand: " />
-			<h:outputText value="#{meinPortfolioBean.kontostand}" />
+			<h:outputText value="#{homeBean.u.accountBalance}" />
 			<p:dataTable value="#{homeBean.u.aktien}" var="aktie"
 				styleClass="order-table" headerClass="order-table-header"
 				rowClasses="order-table-odd-row,order-table-even-row">
@@ -59,7 +59,7 @@
 
 				<p:column>
 					<h:commandLink value="verkaufen"
-						action="${auftragErfassenBean.verkaufen(aktie)}" />
+						action="#{newAuftragBean.StartVerkauf(aktie)}" />
 				</p:column>
 
 			</p:dataTable>

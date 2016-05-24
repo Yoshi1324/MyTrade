@@ -30,25 +30,25 @@
 	<div id="inhaltBox">
 		<f:view>Auftrag erfassen</f:view>
 		<h:form>
-			<h:panelGrid>
-				<h:outputLabel for="Aktienname"
-					value="#{auftragErfassenBean.displayname}" />
+		<p:outputLabel value="#{newAuftragBean.order.product.symbol}" />
+			<p:panelGrid columns="2">
+				
 
-				<h:outputLabel for="fieldPreis" value="Preis (CHF)" />
-				<h:inputText id="fieldPreis" value="#{auftragErfassenBean.preis}">
-				</h:inputText>
+				<p:outputLabel for="fieldPreis" value="Preis (CHF)" />
+				<p:inputText id="fieldPreis" value="#{newAuftragBean.order.price}" >
+				</p:inputText>
 
-				<h:outputLabel for="fieldAnzahl" value="Stückzahl (1-n)" />
-				<h:inputText id="fieldAnzahl" value="#{auftragErfassenBean.anzahl}">
+				<p:outputLabel for="fieldAnzahl" value="Stückzahl (1-n)" />
+				<p:inputText id="fieldAnzahl" value="#{newAuftragBean.menge}">
 					<f:validateLongRange minimum="1"
-						maximum="${auftragErfassenBean.maxAnzahl}" />
-				</h:inputText>
-			</h:panelGrid>
+						maximum="#{newAuftragBean.order.product.menge}" />
+				</p:inputText>
+			</p:panelGrid>
 
-			<h:commandButton value="Zurück" action="#{auftragErfassenBean.back}"
-				ajax="false" />
-			<h:commandButton value="OK"
-				action="#{auftragErfassenBean.insertAuftrag}" ajax="false" />
+				<p:button value="Zurück" outcome="/faces/haendler/Portfolio.xhtml"
+					ajax="false" />
+				<p:commandButton value="weiter" action="#{newAuftragBean.next}"
+					ajax="false" />
 
 			<h:messages for="fieldPreis" style="color:red;margin:8px;" />
 			<h:messages for="fieldAnzahl" style="color:red;margin:8px;" />

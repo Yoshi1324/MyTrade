@@ -17,23 +17,33 @@
 <h:body>
 
 	<h:form>
-		<p:growl id="messages" />
+		<p:growl id="message" showDetail="true" />
 		<p:menubar>
 			<p:menuitem value="#{homeBean.fullname}" disabled="true" />
 		</p:menubar>
-	</h:form>
 
-	<div id="inhaltBox">
-		<p:link outcome="Aktienerfassung?faces-redirect=true"
-			value="Aktien erfassen" />
-		<br />
-		<p:link outcome="Benutzererfassen?faces-redirect=true"
-			value="Benutzer erfassen" />
-		<br />
-		<h:form>
-			<p:commandLink action="#{dividendenFormBean.ausschuetten}"
-				value="Dividenden ausschütten" />
-		</h:form>
-	</div>
+		<div id="inhaltBox">
+			<p:link outcome="Aktienerfassung?faces-redirect=true"
+				value="Aktien erfassen" />
+			<br />
+			<p:link outcome="Benutzererfassen?faces-redirect=true"
+				value="Benutzer erfassen" />
+			<br />
+			<!-- 		action="#{dividendenFormBean.ausschuetten}" -->
+			<p:commandLink
+				actionListener="#{ausschuettung.confirmDividendenAusschuettung}"
+				value="Dividenden ausschütten" update="message">
+				<p:confirm header="Confirmation" message="Sind Sie sicher?"
+					icon="ui-icon-alert" />
+			</p:commandLink>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Yes" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+
+		</div>
+	</h:form>
 </h:body>
 </html>

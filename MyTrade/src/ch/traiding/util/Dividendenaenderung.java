@@ -22,7 +22,7 @@ public class Dividendenaenderung {
 
     public static final int STARKE_STREUUNG = 5;
 
-    public static int neueDividende(int alteDividende, int streuung, int min, int max) {
+    public static Double neueDividende(Double alteDividende, int streuung, int min, int max) {
         double neueDividende, dividendenAenderung;
 
         dividendenAenderung = Math.abs(alteDividende * streuung * r.nextGaussian() / 10);
@@ -42,7 +42,7 @@ public class Dividendenaenderung {
 
             neueDividende = 0.9 * max;
         }
-        return (int) Math.ceil(neueDividende);
+        return (Double) Math.ceil(neueDividende);
 
 
 

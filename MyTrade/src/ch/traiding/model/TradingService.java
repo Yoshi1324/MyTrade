@@ -57,6 +57,7 @@ public class TradingService {
     }
     
     public synchronized void payDividend() {
+
     	
 		PreparedStatement prepStmt;
 		Connection connection = connectionPool.getConnection();
@@ -71,8 +72,8 @@ public class TradingService {
 		prepStmt.close();
 
 		if (rs.next()) {
-			int tempDiv;
-			tempDiv = Dividendenaenderung.neueDividende(rs.getInt("Dividende"), Dividendenaenderung.MITTLERE_STREUUNG,
+			double tempDiv;
+			tempDiv = Dividendenaenderung.neueDividende(rs.getDouble("Dividende"), Dividendenaenderung.MITTLERE_STREUUNG,
 					1, 50);
 
 			String divUpdateQuery = "UPDATE aktien SET aktien.Dividende=" + tempDiv + " WHERE aktien.Symbol = '"
@@ -114,8 +115,7 @@ public class TradingService {
 			System.out.println("FEEEEEEEEEEEEEEEEEEEEEEEEEEEEHLER beim berechnen der Dividene");
 			e.printStackTrace();
 		}
-    	
-    }
+}
 
     public synchronized void createProduct(Stock product, int stock) {
     	Connection connection = connectionPool.getConnection();
@@ -145,7 +145,20 @@ public class TradingService {
     public synchronized void buy(Long orderId) {
     }
 
-    public synchronized void sell(Long productId, double price) {
+    public synchronized void sell(Order order, int menge) {
+    	Connection connection = connectionPool.getConnection();
+    	
+    	try {
+			connection.setAutoCommit(false);
+			OrderDAO orderDAO = new OrderDAO();
+			orderDAO.useConnection(connection);
+			orderDAO.createOrder(order, menge);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	
     }
 
     public List getOrderList() {
