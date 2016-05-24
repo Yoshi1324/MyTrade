@@ -8,54 +8,61 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-<link rel="stylesheet" type="text/css" href="../../css/style.css"
-	title="Standard" />
-<title>Offene Aufträge</title>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css"
+		title="Standard" />
+	<title>Offene Aufträge</title>
 </h:head>
 <h:body>
-	
+
 	<p:growl id="messages" />
-		<p:menubar>
-			<p:menuitem value="Mein Portfolio" url="/faces/haendler/Portfolio.xhtml?" />
-			<p:menuitem value="Offene Aufträge" url="/faces/haendler/Auftraege.xhtml" />
-			<p:menuitem value="Administration" url="/faces/admin/Admin.xhtml" />
-			<p:menuitem value="#{homeBean.fullname}" disabled="true"/>
+	<p:menubar>
+		<p:menuitem value="Mein Portfolio"
+			url="/faces/haendler/Portfolio.xhtml?" />
+		<p:menuitem value="Offene Aufträge"
+			url="/faces/haendler/Auftraege.xhtml" />
+		<p:menuitem value="Administration" url="/faces/admin/Admin.xhtml" />
+		<p:menuitem value="#{homeBean.fullname}" disabled="true" />
 
-		</p:menubar>
-	
-	
-		<div id="inhaltBox">
-			<h:form>
-				<h:outputLabel value="Aktueller Kontostand: " />
-				<h:outputText value="#{homeBean.u.accountBalance}" />
-				<p:dataTable value="#{offeneAuftraegeBean.allOrders}" var="aktie"
-					styleClass="order-table" headerClass="order-table-header"
-					rowClasses="order-table-odd-row,order-table-even-row">
-					<p:column>
-						<f:facet name="header">Symbol</f:facet>
-						#{aktie.symbol}"
+	</p:menubar>
+
+
+	<div id="inhaltBox">
+		<h:form>
+			<h:outputLabel value="Aktueller Kontostand: " />
+			<h:outputText value="#{homeBean.u.accountBalance}" />
+			<p:dataTable value="#{offeneAuftraegeBean.allOrders}" var="order"
+				styleClass="order-table" headerClass="order-table-header"
+				rowClasses="order-table-odd-row,order-table-even-row">
+				<p:column>
+					<f:facet name="header">Symbol</f:facet>
+						#{order.product.symbol}
 					</p:column>
 
-					<p:column>
-						<f:facet name="header">Aktie</f:facet>
-						#{aktie.name}"
+				<p:column>
+					<f:facet name="header">Aktie</f:facet>
+						#{order.product.name}
 					</p:column>
 
-					<p:column>
-						<f:facet name="header">Preis</f:facet>
-						#{aktie.preis}"
+				<p:column>
+					<f:facet name="header">Preis</f:facet>
+						#{order.price}
 					</p:column>
 
-					<p:column>
-						<f:facet name="header">Aktionen</f:facet>
+				<p:column>
+					<f:facet name="header">Aktionen</f:facet>
+					<ui:fragment rendered="#{order.seller.id eq homeBean.u.id}">
+						<p:commandLink value="Stornieren"></p:commandLink>
+					</ui:fragment>
+					<ui:fragment rendered="#{order.seller.id ne homeBean.u.id}">
+						<p:commandLink value="Kaufen"></p:commandLink>
+					</ui:fragment>
+				</p:column>
 
-						
-
-					</p:column>
-				</p:dataTable>
-			</h:form>
-		</div>
+			</p:dataTable>
+		</h:form>
+	</div>
 </h:body>
 </html>

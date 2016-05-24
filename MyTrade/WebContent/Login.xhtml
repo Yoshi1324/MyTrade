@@ -28,13 +28,13 @@
 				<h:panelGrid>
 					<p:outputLabel for="fieldBenutzername" value="Benutzername:" />
 					<p:inputText id="fieldBenutzername" value="#{homeBean.user}">
-						<f:validateRegex pattern="((?=.*[a-z])(?=.*[0-9]).{1, 8})" />
+<!-- 						<f:validateRegex pattern="((?=.*[a-z])(?=.*[0-9]).{1, 8})" />  -->
 						<f:validateRequired />
 					</p:inputText>
 
 					<p:outputLabel for="fieldPasswort" value="Passwort:" />
 					<p:password id="fieldPasswort" value="#{homeBean.password}">
-						<f:validateRegex pattern="((?=.*[a-z])(?=.*[0-9]).{1, 8})" />
+<!-- 						<f:validateRegex pattern="((?=.*[a-z])(?=.*[0-9]).{1, 8})" /> -->
 						<f:validateRequired />
 					</p:password>
 				</h:panelGrid>
