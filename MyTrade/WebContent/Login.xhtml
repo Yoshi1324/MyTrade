@@ -30,13 +30,13 @@
 
 					<p:inputText id="fieldBenutzername" value="#{homeBean.user}"
 						required="true" 
-						validatorMessage="Format nicht gültig" />
+						requiredMessage="Username is required"/>
 
 					<p:outputLabel for="fieldPasswort" value="Passwort:" />
 
 					<p:password id="fieldPasswort" value="#{homeBean.password}"
-						required="true" 
-						validatorMessage="Format nicht gültig" />
+						required="true"
+						requiredMessage="Password is required" />
 
 				</h:panelGrid>
 

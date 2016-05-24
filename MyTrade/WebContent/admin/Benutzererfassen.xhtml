@@ -27,15 +27,18 @@
 			<h:panelGrid columns="2">
 				<p:outputLabel for="fieldName" value="Name" />
 				<p:inputText id="fieldName" value="#{newBenutzerBean.user.name}" 
-				required="true"/>
+				required="true"
+				requiredMessage="Name is required"/>
 
 				<p:outputLabel for="fieldVorname" value="Vorname" />
 				<p:inputText id="fieldVorname" value="#{newBenutzerBean.user.vorname}"
-				required="true"/>
+				required="true"
+				requiredMessage="Vorname is required"/>
 
 				<p:outputLabel for="fieldLogin" value="Benutzername" />
 				<p:inputText id="fieldLogin" value="#{newBenutzerBean.user.username}"
-				required="true"/>
+				required="true"
+				requiredMessage="Login is required"/>
 
 
 				<p:outputLabel for="fieldRolle" value="Rolle" />
@@ -47,7 +50,8 @@
 
 				<p:outputLabel for="fieldPasswort" value="Passwort" />
 				<p:password id="fieldPasswort" value="#{newBenutzerBean.user.password}"
-				required="true"/>
+				required="true"
+				requiredMessage="Password is required"/>
 
 
 				<p:button outcome="/faces/admin/Admin?faces-redirect=true" value="Zurück"/>
