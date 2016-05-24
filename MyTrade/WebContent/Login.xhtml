@@ -24,7 +24,7 @@
 		</div>
 		<br />
 		<div id="inhaltBox">
-			<h:form method="POST">
+			<h:form>
 				<h:panelGrid>
 					<p:outputLabel for="fieldBenutzername" value="Benutzername:" />
 
@@ -38,13 +38,13 @@
 						required="true"
 						requiredMessage="Password is required" />
 
-				</h:panelGrid>
+				
 
 				<p:commandButton value="OK" action="#{homeBean.login()}" />
-
-				<p:messages for="fieldBenutzername" style="color:red;margin:8px;" />
-				<p:messages for="fieldPasswort" style="color:red;margin:8px;" />
+				</h:panelGrid>
 			</h:form>
+		<h:messages for="fieldBenutzername" style="color:red;margin:8px;" />
+		<h:messages for="fieldPasswort" style="color:red;margin:8px;" />
 		</div>
 	</p:panel>
 </h:body>

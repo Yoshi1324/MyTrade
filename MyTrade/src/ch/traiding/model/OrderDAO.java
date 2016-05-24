@@ -65,7 +65,18 @@ public class OrderDAO {
 	}
 
 	public void finishOrder() {
-
+		if (connection == null) {
+			throw new IllegalArgumentException("You must call useConnection before interacting with the database");
+		}
+		String insert = "DELETE FROM `mytrade`.`verkauf` WHERE `Verkauf_ID`='?';";
+		PreparedStatement statement = null;
+		try {
+			statement = connection.prepareStatement(insert);
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	public ArrayList<Order> getAllOrder() {
