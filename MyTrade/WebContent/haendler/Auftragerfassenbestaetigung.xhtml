@@ -32,27 +32,22 @@
 
 	<div id="inhaltBox">
 		<h:form>
-			<h:panelGrid>
-				<h:outputLabel for="fieldSymbol" value="Symbol: " />
-				<h:outputLabel id="fieldSymbol" value="#{benutzerFormBean.name}" />
+			<p:panelGrid columns="2">
+				<p:outputLabel for="fieldSymbol" value="Symbol: " />
+				<p:outputLabel id="fieldSymbol" value="#{newAuftragBean.order.product.symbol}" />
 
-				<h:outputLabel for="fieldAktienName" value="Aktie: " />
-				<h:outputLabel id="fieldAktienName"
-					value="#{benutzerFormBean.vorname}" />
+				<p:outputLabel for="fieldPreis" value="Preis: " />
+				<p:outputLabel id="fieldPreis" value="#{newAuftragBean.order.price}" />
 
-				<h:outputLabel for="fieldPreis" value="Preis: " />
-				<h:outputLabel id="fieldPreis" value="#{benutzerFormBean.login}" />
+				<p:outputLabel for="fieldStueckzahl" value="Stückzahl: " />
+				<p:outputLabel id="fieldStueckzahl"
+					value="#{newAuftragBean.menge}" />
 
-				<h:outputLabel for="fieldStueckzahl" value="Stückzahl: " />
-				<h:outputLabel id="fieldStueckzahl"
-					value="#{benutzerFormBean.login}" />
-			</h:panelGrid>
-
-			<h:commandButton value="Zurück" action="#{benutzerFormBean.back2}"
+			<p:button value="Zurück" outcome="/faces/haendler/Auftragerfassen.xhtml"
 				ajax="false" />
-			<h:commandButton value="Speichern"
-				action="#{benutzerFormBean.saveUser}" ajax="false" />
-
+			<p:commandButton value="Speichern"
+				action="#{newAuftragBean.verkaufen}" ajax="false" />
+			</p:panelGrid>
 		</h:form>
 	</div>
 </h:body>

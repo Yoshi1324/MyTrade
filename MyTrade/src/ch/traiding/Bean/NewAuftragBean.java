@@ -16,7 +16,7 @@ public class NewAuftragBean {
 		
 	}
 
-	public String varkaufen(){
+	public String verkaufen(){
 		tradingService.sell(order, menge);
 		return "/faces/haendler/Portfolio?faces-redirect=true";
 	}
