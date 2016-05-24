@@ -22,7 +22,7 @@ public class NewAuftragBean {
 	}
 	
 	public String next(){
-		return "/faces/haendler/Portfolio?faces-redirect=true";
+		return "/faces/haendler/Auftragerfassenbestaetigung?faces-redirect=true";
 	}
 	
 	public String StartVerkauf(Stock aktie){
