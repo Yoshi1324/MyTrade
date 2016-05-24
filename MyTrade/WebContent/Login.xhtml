@@ -27,11 +27,11 @@
 			<h:form method="POST">
 				<h:panelGrid>
 					<p:outputLabel for="fieldBenutzername" value="Benutzername:" />
-					<p:inputText id="fieldBenutzername" value="#{homeBean.user}" />
+					<p:inputText id="fieldBenutzername" value="#{homeBean.user}" required="true"/>
 						<f:validateRequired />
 
 					<p:outputLabel for="fieldPasswort" value="Passwort:" />
-					<p:password id="fieldPasswort" value="#{homeBean.password}" />
+					<p:password id="fieldPasswort" value="#{homeBean.password}" required="true"/>
 						<f:validateRequired />
 						
 				</h:panelGrid>
