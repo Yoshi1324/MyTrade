@@ -25,26 +25,27 @@
 		</div>
 		<br />
 		<div id="inhaltBox">
-			<h:form method="POST">
+			<h:form>
 				<h:panelGrid>
 					<p:outputLabel for="fieldBenutzername" value="Benutzername:" />
-					<p:inputText id="fieldBenutzername" value="#{homeBean.user}">
-						<f:validateRegex pattern="((?=.*[a-z])(?=.*[0-9]).{1, 8})" />
-						<f:validateRequired />
-					</p:inputText>
+
+					<p:inputText id="fieldBenutzername" value="#{homeBean.user}"
+						required="true" 
+						requiredMessage="Username is required"/>
 
 					<p:outputLabel for="fieldPasswort" value="Passwort:" />
-					<p:password id="fieldPasswort" value="#{homeBean.password}">
-						<f:validateRegex pattern="((?=.*[a-z])(?=.*[0-9]).{1, 8})" />
-						<f:validateRequired />
-					</p:password>
-				</h:panelGrid>
+
+					<p:password id="fieldPasswort" value="#{homeBean.password}"
+						required="true"
+						requiredMessage="Password is required" />
+
+				
 
 				<p:commandButton value="OK" action="#{homeBean.login()}" />
-
-				<p:messages for="fieldBenutzername" style="color:red;margin:8px;" />
-				<p:messages for="fieldPasswort" style="color:red;margin:8px;" />
+				</h:panelGrid>
 			</h:form>
+		<h:messages for="fieldBenutzername" style="color:red;margin:8px;" />
+		<h:messages for="fieldPasswort" style="color:red;margin:8px;" />
 		</div>
 	</p:panel>
 </h:body>

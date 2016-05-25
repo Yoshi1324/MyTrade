@@ -143,7 +143,7 @@ public class TradingService {
 
     }
 
-    public synchronized void buy(Long orderId) {
+    public synchronized void buy(int orderId) {
     }
     
     public synchronized void sell(Order order, int menge) {

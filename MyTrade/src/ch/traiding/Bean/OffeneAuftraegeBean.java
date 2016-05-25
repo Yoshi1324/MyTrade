@@ -3,8 +3,10 @@ package ch.traiding.Bean;
 import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 import ch.traiding.model.*;
 
@@ -19,6 +21,15 @@ public class OffeneAuftraegeBean {
 		tService = new TradingService();
 	}
 	
+	public void kaufen(Stock aktie, User user){
+		addMessage("Dividende", "Die Dividende wurde erfolgreich ausgeschüttet");
+		
+	}
+	
+	public void addMessage(String summary, String detail) {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+		FacesContext.getCurrentInstance().addMessage(null, message);
+	}
 	
 	public ArrayList<Order> getAllOrders() {
 		return allOrders = tService.getOrderList();
