@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- *
- * @author cme
- */
+* @author  Joshua	Blöchliger
+* @version 1.1
+*/
 public class UserDAO {
 
     private Connection connection;
@@ -19,7 +19,7 @@ public class UserDAO {
     }
     
     public User login(String user, String password) throws SQLException {
-        String insert = "SELECT User_ID, Benutzername, Name, Vorname, Passwort_Hash, Rolle, AccountBalance FROM user WHERE Benutzername=? AND Passwort_Hash=?";
+        String insert = "SELECT User_ID, Benutzername, Name, Vorname, Passwort_Hash, Rolle, AccountBalance FROM user WHERE Benutzername=? AND Passwort_Hash=SHA1(?)";
         PreparedStatement statement = null;
 
         try {
@@ -84,7 +84,7 @@ public class UserDAO {
     }
 
     public void insert(User user) throws SQLException {
-        String insert = "INSERT INTO user (Benutzername, Name, Vorname, Passwort_Hash, Rolle, AccountBalance) VALUES(?,?,?,?,?,?)";
+        String insert = "INSERT INTO user (Benutzername, Name, Vorname, Passwort_Hash, Rolle, AccountBalance) VALUES(?,?,?,SHA1(?),?,?)";
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(insert);

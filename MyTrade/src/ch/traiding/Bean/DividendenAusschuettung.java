@@ -7,7 +7,10 @@ import javax.faces.context.FacesContext;
 
 import ch.traiding.model.TradingService;
 
-
+/**
+* @author  Joshua	Blöchliger
+* @version 1.1
+*/
 
 @ManagedBean(name = "ausschuettung")
 @ApplicationScoped

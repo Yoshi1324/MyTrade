@@ -1,9 +1,9 @@
 package ch.traiding.model;
 
 /**
- *
- * @author cme
- */
+* @author  Joshua	Blöchliger
+* @version 1.1
+*/
 public class Order {
 
     private Integer id = 0;

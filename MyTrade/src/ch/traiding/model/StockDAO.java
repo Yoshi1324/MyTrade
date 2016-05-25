@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- *
- * @author cme
- */
+* @author  Joshua	Blöchliger
+* @version 1.1
+*/
 public class StockDAO {
 
     private Connection connection;

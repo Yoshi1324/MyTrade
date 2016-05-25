@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import ch.traiding.Bean.HomeBean;
 
 /**
- *
- * @author cme
- */
+* @author  Joshua	Blöchliger
+* @version 1.1
+*/
 public class OrderDAO {
 
 	private Connection connection;
@@ -169,7 +169,8 @@ public class OrderDAO {
 			result = statement.executeQuery();
 			if(result.next()){
 				aktienMenge = result.getInt("Menge");
-				String update = "UPDATE `mytrade`.`useraktien` SET `Menge`='?' WHERE `User_ID`='?' AND `Symbol`=?;";
+				statement.close();
+				String update = "UPDATE `mytrade`.`useraktien` SET `Menge`=? WHERE `User_ID`=? AND `Symbol`=?;";
 				
 				statement = connection.prepareStatement(update);
 				statement.setInt(1, aktienMenge);

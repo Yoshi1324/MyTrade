@@ -22,4 +22,12 @@
   <listener>
     <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
   </listener>
+  <error-page> 
+    <error-code>404</error-code>
+    <location>/faces/404.xhtml</location>
+</error-page>
+  <error-page> 
+    <error-code>500</error-code>
+    <location>/faces/404.xhtml</location>
+</error-page>
 </web-app>

@@ -1,6 +1,9 @@
 package ch.traiding.Bean;
 
-
+/**
+* @author  Joshua	Blöchliger
+* @version 1.1
+*/
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;

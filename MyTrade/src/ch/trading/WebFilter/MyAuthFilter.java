@@ -16,6 +16,10 @@ import javax.servlet.http.HttpSession;
 
 import ch.traiding.model.User;
 
+/**
+* @author  Joshua	Blöchliger
+* @version 1.1
+*/
 
 @WebFilter("/faces/private/*") // oder z. B. @WebFilter("/privat/*")
 public class MyAuthFilter implements Filter {

@@ -10,7 +10,10 @@ import javax.faces.context.FacesContext;
 
 import ch.traiding.model.*;
 
-
+/**
+* @author  Joshua	Blöchliger
+* @version 1.1
+*/
 @ManagedBean(name = "offeneAuftraegeBean")
 @ApplicationScoped
 public class OffeneAuftraegeBean {

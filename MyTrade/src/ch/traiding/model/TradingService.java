@@ -11,9 +11,9 @@ import ch.traiding.util.ConnectionPoolingImplementation;
 import ch.traiding.util.Dividendenaenderung;
 
 /**
- *
- * @author cme
- */
+* @author  Joshua	Blöchliger
+* @version 1.1
+*/
 public class TradingService {
 	//String connectionURL = "jdbc:mysql://localhost/myTrade";
 	ConnectionPoolingImplementation connectionPool;

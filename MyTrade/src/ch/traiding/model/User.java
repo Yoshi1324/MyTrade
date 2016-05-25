@@ -3,9 +3,9 @@ package ch.traiding.model;
 import java.util.ArrayList;
 
 /**
- *
- * @author cme
- */
+* @author  Joshua	Blöchliger
+* @version 1.1
+*/
 public class User {
 
     public static final String ROLE_TRADFER = "2";

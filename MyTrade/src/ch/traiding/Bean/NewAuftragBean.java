@@ -4,7 +4,10 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
 import ch.traiding.model.*;
-
+/**
+* @author  Joshua	Blöchliger
+* @version 1.1
+*/
 @ManagedBean(name = "newAuftragBean")
 @ApplicationScoped
 public class NewAuftragBean {
