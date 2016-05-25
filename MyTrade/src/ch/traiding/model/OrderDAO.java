@@ -111,7 +111,7 @@ public class OrderDAO {
 
 		try {
 			statement = connection.prepareStatement(insert);
-			statement.setInt(1, order_id);
+			statement.setInt(1, order.getSeller().getId());
 			statement.executeUpdate();
 			connection.commit();
 			statement.close();
