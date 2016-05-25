@@ -15,12 +15,12 @@ public class NewBenutzerBean {
     private TradingService tradingService = new TradingService();
     
     public String next(){
-    	return "/faces/admin/Benutzerbestaetigung?faces-redirect=true";
+    	return "/faces/private/admin/Benutzerbestaetigung?faces-redirect=true";
     }
     
     public String saveUser() throws SQLException{
     	tradingService.newUser(user);
-    	return "/faces/admin/Admin?faces-redirect=true";
+    	return "/faces/private/admin/Admin?faces-redirect=true";
     }
 
 	public User getUser() {
