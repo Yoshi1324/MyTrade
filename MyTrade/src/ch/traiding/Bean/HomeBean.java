@@ -48,6 +48,8 @@ public class HomeBean {
 			return "";
 		}
 	}
+	
+
 
 	public String getFullname() {
 		return u.getVorname() + " " + u.getName();
