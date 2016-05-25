@@ -11,8 +11,6 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-	<link rel="stylesheet" type="text/css" href="../../css/style.css"
-		title="Standard" />
 	<title>Offene Aufträge</title>
 </h:head>
 <h:body>
@@ -20,10 +18,10 @@
 	<p:growl id="messages" />
 	<p:menubar>
 		<p:menuitem value="Mein Portfolio"
-			url="/faces/haendler/Portfolio.xhtml?" />
+			url="/faces/private/haendler/Portfolio.xhtml?" />
 		<p:menuitem value="Offene Aufträge"
-			url="/faces/haendler/Auftraege.xhtml" />
-		<p:menuitem value="Administration" url="/faces/admin/Admin.xhtml" />
+			url="/faces/private/haendler/Auftraege.xhtml" />
+		<p:menuitem value="Administration" url="/faces/private/admin/Admin.xhtml" />
 		<p:menuitem value="#{homeBean.fullname}" disabled="true" />
 
 	</p:menubar>

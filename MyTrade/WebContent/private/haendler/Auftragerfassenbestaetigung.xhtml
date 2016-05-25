@@ -21,10 +21,10 @@
 		<p:growl id="messages" />
 		<p:menubar>
 			<p:menuitem value="Mein Portfolio"
-				url="/faces/haendler/Portfolio.xhtml?" />
+				url="/faces/private/haendler/Portfolio.xhtml?" />
 			<p:menuitem value="Offene Aufträge"
-				url="/faces/haendler/Auftraege.xhtml" />
-			<p:menuitem value="Administration" url="/faces/admin/Admin.xhtml" />
+				url="/faces/private/haendler/Auftraege.xhtml" />
+			<p:menuitem value="Administration" url="/faces/private/admin/Admin.xhtml" />
 			<p:menuitem value="#{homeBean.fullname}" disabled="true"/>
 
 		</p:menubar>
@@ -43,7 +43,7 @@
 				<p:outputLabel id="fieldStueckzahl"
 					value="#{newAuftragBean.menge}" />
 
-			<p:button value="Zurück" outcome="/faces/haendler/Auftragerfassen.xhtml"
+			<p:button value="Zurück" outcome="/faces/private/haendler/Auftragerfassen.xhtml"
 				ajax="false" />
 			<p:commandButton value="Speichern"
 				action="#{newAuftragBean.verkaufen}" ajax="false" />

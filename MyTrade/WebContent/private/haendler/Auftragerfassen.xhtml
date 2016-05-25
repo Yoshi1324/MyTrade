@@ -19,10 +19,10 @@
 	<p:growl id="messages" />
 	<p:menubar>
 		<p:menuitem value="Mein Portfolio"
-			url="/faces/haendler/Portfolio.xhtml?" />
+			url="/faces/private/haendler/Portfolio.xhtml?" />
 		<p:menuitem value="Offene Aufträge"
-			url="/faces/haendler/Auftraege.xhtml" />
-		<p:menuitem value="Administration" url="/faces/admin/Admin.xhtml" />
+			url="/faces/private/haendler/Auftraege.xhtml" />
+		<p:menuitem value="Administration" url="/faces/private/admin/Admin.xhtml" />
 		<p:menuitem value="#{homeBean.fullname}" disabled="true"/>
 
 	</p:menubar>
@@ -45,7 +45,7 @@
 				</p:inputText>
 			</p:panelGrid>
 
-				<p:button value="Zurück" outcome="/faces/haendler/Portfolio.xhtml"
+				<p:button value="Zurück" outcome="/faces/private/haendler/Portfolio.xhtml"
 					ajax="false" />
 				<p:commandButton value="weiter" action="#{newAuftragBean.next}"
 					ajax="false" />
