@@ -89,7 +89,7 @@ public class ConnectionPoolingImplementation implements ConnectionPooling {
 	private static ConnectionPoolingImplementation theSingleton = null;
 
 
-	public static synchronized ConnectionPoolingImplementation getInstance(int min, int max) throws NoPermissionException {
+	private static synchronized ConnectionPoolingImplementation getInstance(int min, int max) throws NoPermissionException {
 		if(null != theSingleton) {
 			throw new NoPermissionException("Only the first call to getInstance must use min and max parameters");
 		}
@@ -108,7 +108,8 @@ public class ConnectionPoolingImplementation implements ConnectionPooling {
 
 	public static synchronized ConnectionPoolingImplementation getInstance() throws NoPermissionException {
 		if(null == theSingleton) {
-			throw new NoPermissionException("Call getInstance first with min and max parameters");
+			return getInstance(1,5);
+			//throw new NoPermissionException("Call getInstance first with min and max parameters");
 		}
 		return theSingleton;
 	}

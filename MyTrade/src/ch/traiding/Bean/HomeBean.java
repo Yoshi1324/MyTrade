@@ -19,7 +19,7 @@ public class HomeBean {
 
 	public HomeBean(){
 		try {
-			ConnectionPoolingImplementation.getInstance(1,10);
+			ConnectionPoolingImplementation.getInstance();
 		} catch (NoPermissionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
