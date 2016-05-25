@@ -3,6 +3,8 @@ package ch.traiding.Bean;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.naming.NoPermissionException;
 
 import ch.traiding.model.*;
@@ -29,13 +31,18 @@ public class HomeBean {
 	
 	public String login(){
 		u = tService.login(user, password);
+		
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		externalContext.getSessionMap().put("benutzer", u);
+		
 	System.out.println(u.getRole());
 		if(u.getRole() == 1){
 			System.out.println("test1");
-			return "/faces/admin/Admin?faces-redirect=true";
+			return "/faces/private/admin/Admin?faces-redirect=true";
 		}else if(u.getRole() == 2){
 			System.out.println("test2");
-			return "/faces/haendler/Portfolio?faces-redirect=true";
+			return "/faces/private/haendler/Portfolio?faces-redirect=true";
 		}else{
 			System.out.println("test3");
 			return "";
