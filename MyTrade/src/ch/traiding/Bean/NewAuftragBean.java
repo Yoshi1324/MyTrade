@@ -18,17 +18,17 @@ public class NewAuftragBean {
 
 	public String verkaufen(){
 		tradingService.sell(order, menge);
-		return "/faces/haendler/Portfolio?faces-redirect=true";
+		return "/faces/private/haendler/Portfolio?faces-redirect=true";
 	}
 	
 	public String next(){
-		return "/faces/haendler/Auftragerfassenbestaetigung?faces-redirect=true";
+		return "/faces/private/haendler/Auftragerfassenbestaetigung?faces-redirect=true";
 	}
 	
 	public String StartVerkauf(Stock aktie, User u){
 		order.setSeller(u);
 		order.setProduct(aktie);
-		return "/faces/haendler/Auftragerfassen?faces-redirect=true";
+		return "/faces/private/haendler/Auftragerfassen?faces-redirect=true";
 	}
 	
 	public int getMenge() {
