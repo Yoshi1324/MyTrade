@@ -53,11 +53,11 @@ public class UserDAO {
         this.connection = connection;
     }
     
-    public ArrayList<Stock> getAllAktienforUser(User user) throws SQLException{
+    public ArrayList<Stock> getAllAktienforUser(int user_ID) throws SQLException{
     	Stock aktie;
     	ArrayList<Stock> aktienList = new ArrayList<Stock>();
     	String insert = "SELECT aktien.Symbol, aktien.Bezeichnung, aktien.NormalPreis, aktien.Preis, aktien.Dividende, useraktien.Menge FROM useraktien"
-    			+ " INNER JOIN aktien ON useraktien.User_ID = " + user.getId() + " AND useraktien.Symbol = aktien.Symbol";
+    			+ " INNER JOIN aktien ON useraktien.User_ID = " + user_ID + " AND useraktien.Symbol = aktien.Symbol";
         PreparedStatement statement = null;
 
         try {

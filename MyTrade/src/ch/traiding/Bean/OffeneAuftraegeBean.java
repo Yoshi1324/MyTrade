@@ -21,9 +21,18 @@ public class OffeneAuftraegeBean {
 		tService = new TradingService();
 	}
 	
-	public void kaufen(Order order, User user){
+	public String stornieren(Order order){
+		addMessage("Aktien Kauf", "Die Aktie" + order.getProduct().getName() + " wurde gekauft.");
+		tService.storno(order);
+		allOrders = tService.getOrderList();
+		return	"/faces/private/haendler/Auftraege?faces-redirect=true";
+	}
+	
+	public String kaufen(Order order, User user){
 		addMessage("Aktien Kauf", "Die Aktie" + order.getProduct().getName() + " wurde gekauft.");
 		tService.buy(order, user);
+		allOrders = tService.getOrderList();
+		return	"/faces/private/haendler/Auftraege?faces-redirect=true";
 	}
 	
 	public void addMessage(String summary, String detail) {

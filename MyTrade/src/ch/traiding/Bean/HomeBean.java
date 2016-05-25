@@ -49,7 +49,13 @@ public class HomeBean {
 		}
 	}
 	
-
+	public String logout(){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		externalContext.getSessionMap().clear();
+		u = null;
+		return "/faces/Login?faces-redirect=true";
+	}
 
 	public String getFullname() {
 		return u.getVorname() + " " + u.getName();
