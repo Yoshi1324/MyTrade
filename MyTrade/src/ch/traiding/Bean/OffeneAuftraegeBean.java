@@ -21,9 +21,9 @@ public class OffeneAuftraegeBean {
 		tService = new TradingService();
 	}
 	
-	public void kaufen(Stock aktie, User user){
-		addMessage("Dividende", "Die Dividende wurde erfolgreich ausgeschüttet");
-		
+	public void kaufen(Order order, User user){
+		addMessage("Aktien Kauf", "Die Aktie" + order.getProduct().getName() + " wurde gekauft.");
+		tService.buy(order, user);
 	}
 	
 	public void addMessage(String summary, String detail) {

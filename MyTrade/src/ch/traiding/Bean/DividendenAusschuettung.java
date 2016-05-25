@@ -7,6 +7,8 @@ import javax.faces.context.FacesContext;
 
 import ch.traiding.model.TradingService;
 
+
+
 @ManagedBean(name = "ausschuettung")
 @ApplicationScoped
 public class DividendenAusschuettung {

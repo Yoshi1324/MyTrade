@@ -143,7 +143,18 @@ public class TradingService {
 
     }
 
-    public synchronized void buy(int orderId) {
+    public synchronized void buy(Order order, User user) {
+    	Connection connection = connectionPool.getConnection();
+    	
+    	try {
+			connection.setAutoCommit(false);
+			OrderDAO orderDAO = new OrderDAO();
+			orderDAO.useConnection(connection);
+			orderDAO.finishOrder(order, user);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     public synchronized void sell(Order order, int menge) {

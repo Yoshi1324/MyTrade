@@ -64,12 +64,15 @@ public class OrderDAO {
 		}
 	}
 
-	public void finishOrder(Order order) {
+	public void finishOrder(Order order, User user) {
 		if (connection == null) {
 			throw new IllegalArgumentException("You must call useConnection before interacting with the database");
 		}
 		deletFromVerkauf(order.getId());
+		
 		deletFromUserAktien(order);
+		
+		addUseraktie(order, user);
 		
 	}
 
@@ -90,37 +93,109 @@ public class OrderDAO {
 	}
 	
 	private void deletFromUserAktien(Order order) {
-		String insert = "Select FROM `mytrade`.`useraktien` WHERE `User_ID`=? AND `Symbol`='?';";
+		String select = "Select Menge FROM `mytrade`.`useraktien` WHERE `User_ID`=? AND `Symbol`='?';";
 		PreparedStatement statement = null;
-
+		ResultSet result;
+		int aktienMenge = 0;
+		Double accountBalance = 0.0;
 		try {
-			statement = connection.prepareStatement(insert);
+			statement = connection.prepareStatement(select);
+			statement.setInt(1, order.getSeller().getId());
+			statement.setString(2, order.getProduct().getSymbol());
+			result = statement.executeQuery();
+			if(result.next()){
+				aktienMenge = result.getInt("Menge");
+				aktienMenge = aktienMenge - 1;
+			}
+			result.close();		
+		
+			
+			String delete = "DELETE FROM `mytrade`.`useraktien` WHERE `User_ID`=? AND `Symbol`='?';";
+			statement = null;
+
+			statement = connection.prepareStatement(delete);
 			statement.setInt(1, order.getSeller().getId());
 			statement.setString(2, order.getProduct().getSymbol());
 			statement.executeUpdate();
-			connection.commit();
-			statement.close();
-		}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		insert = "DELETE FROM `mytrade`.`useraktien` WHERE `Verkauf_ID`='?';";
-		statement = null;
+			
+			
+			String insert = "INSERT INTO `mytrade`.`useraktien` (`Symbol`, `User_ID`, `Menge`) VALUES ('?', '?', '?');";
+			statement = null;
 
-		try {
 			statement = connection.prepareStatement(insert);
-			statement.setInt(1, order.getSeller().getId());
+			statement.setString(1, order.getProduct().getSymbol());
+			statement.setInt(2, order.getSeller().getId());
+			statement.setInt(3, aktienMenge);
 			statement.executeUpdate();
-			connection.commit();
+			
+			
+			select = "Select AccountBalance FROM `mytrade`.`user` WHERE `User_ID`=?;";
+			statement = null;
+			
+			statement = connection.prepareStatement(select);
+			statement.setInt(1, order.getSeller().getId());
+			result = statement.executeQuery();
+			if(result.next()){
+				accountBalance = result.getDouble("AccountBalance");
+				accountBalance = accountBalance + order.getPrice();
+			}
+			result.close();
+			
+			
+			String update = "UPDATE `mytrade`.`user` SET `AccountBalance`=? WHERE `User_ID`=?";
+			statement = connection.prepareStatement(update);
+			statement.setDouble(1, accountBalance);
+			statement.setInt(2, order.getSeller().getId());
+			statement.executeUpdate();
+
+			result.close();
 			statement.close();
+			connection.commit();
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+	public void addUseraktie(Order order, User user){
+		String select = "Select Menge FROM `mytrade`.`useraktien` WHERE `User_ID`=? AND `Symbol`='?';";
+		PreparedStatement statement = null;
+		ResultSet result;
+		int aktienMenge = 0;
+		try {
+			statement = connection.prepareStatement(select);
+			statement.setInt(1, user.getId());
+			statement.setString(2, order.getProduct().getSymbol());
+			result = statement.executeQuery();
+			result.close();
+			if(result.next()){
+				aktienMenge = result.getInt("Menge");
+				String update = "UPDATE `mytrade`.`useraktien` SET `Menge`='?' WHERE `User_ID`='?' AND `Symbol`='?';";
+				
+				statement = connection.prepareStatement(update);
+				statement.setInt(1, aktienMenge);
+				statement.setInt(2, user.getId());
+				statement.setString(3, order.getProduct().getSymbol());
+				statement.executeUpdate();
+			}else{
+				String insert = "INSERT INTO `mytrade`.`useraktien` (`Symbol`, `User_ID`, `Menge`) VALUES ('?', '?', '?');";
+				statement = null;
+
+				statement = connection.prepareStatement(insert);
+				statement.setString(1, order.getProduct().getSymbol());
+				statement.setInt(2, user.getId());
+				statement.setInt(3, aktienMenge);
+				statement.executeUpdate();
+			}
+			statement.close();
+			connection.commit();
+			
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public ArrayList<Order> getAllOrder() {
 		if (connection == null) {
 			throw new IllegalArgumentException("You must call useConnection before interacting with the database");
