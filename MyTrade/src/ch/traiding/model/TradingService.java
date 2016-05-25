@@ -27,6 +27,20 @@ public class TradingService {
 			e.printStackTrace();
 		}
     }
+    
+    public void storno(Order order){
+    	Connection connection = connectionPool.getConnection();
+    	
+    	try {
+			connection.setAutoCommit(false);
+			OrderDAO orderDAO = new OrderDAO();
+			orderDAO.useConnection(connection);
+			orderDAO.deletFromVerkauf(order.getId());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
 
     public synchronized User login(String user, String password) {
         Connection connection = connectionPool.getConnection();
@@ -35,10 +49,27 @@ public class TradingService {
             UserDAO userDAO = new UserDAO();
             userDAO.useConnection(connection);
             User u = userDAO.login(user, password);
-            u.setAktien(userDAO.getAllAktienforUser(u));
+            u.setAktien(userDAO.getAllAktienforUser(u.getId()));
             System.out.println("BENUTZER: " + u); // TODO remove sysout Statements
 
             return u;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+        	connectionPool.putConnection(connection);
+        }
+
+    }
+    
+    public synchronized ArrayList<Stock> getAllAktien(int user_ID) {
+        Connection connection = connectionPool.getConnection();
+
+        try {
+            UserDAO userDAO = new UserDAO();
+            userDAO.useConnection(connection);
+            ArrayList<Stock> aktienList = userDAO.getAllAktienforUser(user_ID);
+            return aktienList;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

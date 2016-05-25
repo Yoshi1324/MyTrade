@@ -22,20 +22,20 @@
 			url="/faces/private/haendler/Portfolio.xhtml?" />
 		<p:menuitem value="Offene Aufträge"
 			url="/faces/private/haendler/Auftraege.xhtml" />
-		<p:menuitem value="Administration" url="/faces/private/admin/Admin.xhtml" />
-		<p:menuitem value="#{homeBean.fullname}" disabled="true"/>
+		<p:menuitem value="Logout" action="#{homeBean.logout}"/>
+		<p:menuitem value="#{homeBean.fullname}" disabled="true" />
 
 	</p:menubar>
 
 	<div id="inhaltBox">
 		<f:view>Auftrag erfassen</f:view>
 		<h:form>
-		<p:outputLabel value="#{newAuftragBean.order.product.symbol}" />
+			<p:outputLabel value="#{newAuftragBean.order.product.symbol}" />
 			<p:panelGrid columns="2">
-				
+
 
 				<p:outputLabel for="fieldPreis" value="Preis (CHF)" />
-				<p:inputText id="fieldPreis" value="#{newAuftragBean.order.price}" >
+				<p:inputText id="fieldPreis" value="#{newAuftragBean.order.price}">
 				</p:inputText>
 
 				<p:outputLabel for="fieldAnzahl" value="Stückzahl (1-n)" />
@@ -45,10 +45,10 @@
 				</p:inputText>
 			</p:panelGrid>
 
-				<p:button value="Zurück" outcome="/faces/private/haendler/Portfolio.xhtml"
-					ajax="false" />
-				<p:commandButton value="weiter" action="#{newAuftragBean.next}"
-					ajax="false" />
+			<p:button value="Zurück"
+				outcome="/faces/private/haendler/Portfolio.xhtml" ajax="false" />
+			<p:commandButton value="weiter" action="#{newAuftragBean.next}"
+				ajax="false" />
 
 			<h:messages for="fieldPreis" style="color:red;margin:8px;" />
 			<h:messages for="fieldAnzahl" style="color:red;margin:8px;" />

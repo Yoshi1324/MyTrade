@@ -21,8 +21,7 @@
 			url="/faces/private/haendler/Portfolio.xhtml?" />
 		<p:menuitem value="Offene Aufträge"
 			url="/faces/private/haendler/Auftraege.xhtml" />
-		<p:menuitem value="Administration"
-			url="/faces/private/admin/Admin.xhtml" />
+		<p:menuitem value="Logout" action="#{homeBean.logout}" />
 		<p:menuitem value="#{homeBean.fullname}" disabled="true" />
 
 	</p:menubar>
@@ -53,14 +52,25 @@
 				<p:column>
 					<f:facet name="header">Aktionen</f:facet>
 					<ui:fragment rendered="#{order.seller.id eq homeBean.u.id}">
-						<p:commandLink value="Stornieren"></p:commandLink>
+						<p:commandLink
+							actionListener="#{offeneAuftraegeBean.stornieren(order)}"
+							value="Stornieren" ajax="true">
+							<p:confirm header="Confirmation"
+								message="Wollen sie Wirklich Stornieren?" icon="ui-icon-alert" />
+						</p:commandLink>
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="Yes" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="No" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
 					</ui:fragment>
 					<ui:fragment rendered="#{order.seller.id ne homeBean.u.id}">
 						<p:commandLink
 							actionListener="#{offeneAuftraegeBean.kaufen(order, homeBean.u)}"
-							value="Dividenden ausschütten" update="message">
-							<p:confirm header="Confirmation" message="Wollen sie Wirklich Kaufen?"
-								icon="ui-icon-alert" />
+							value="Kaufen" ajax="true">
+							<p:confirm header="Confirmation"
+								message="Wollen sie Wirklich Kaufen?" icon="ui-icon-alert" />
 						</p:commandLink>
 						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
 							<p:commandButton value="Yes" type="button"

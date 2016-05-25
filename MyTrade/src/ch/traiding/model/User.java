@@ -26,10 +26,12 @@ public class User {
 
     private double accountBalance;
     
+    private TradingService tService = new TradingService();
+    
     private ArrayList<Stock> Aktien = new ArrayList<Stock>();
     
     public ArrayList<Stock> getAktien() {
-		return Aktien;
+		return tService.getAllAktien(this.id);
 	}
 
 	public void setAktien(ArrayList<Stock> aktien) {

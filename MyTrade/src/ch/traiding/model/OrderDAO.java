@@ -69,14 +69,14 @@ public class OrderDAO {
 			throw new IllegalArgumentException("You must call useConnection before interacting with the database");
 		}
 		deletFromVerkauf(order.getId());
-		
-		deletFromUserAktien(order);
-		
+		if(order.getSeller().getId() != 1){
+			deletFromUserAktien(order);
+		}
 		addUseraktie(order, user);
 		
 	}
 
-	private void deletFromVerkauf(int order_id) {
+	public void deletFromVerkauf(int order_id) {
 		String insert = "DELETE FROM `mytrade`.`verkauf` WHERE `Verkauf_ID`=?;";
 		PreparedStatement statement = null;
 
@@ -93,7 +93,7 @@ public class OrderDAO {
 	}
 	
 	private void deletFromUserAktien(Order order) {
-		String select = "Select Menge FROM `mytrade`.`useraktien` WHERE `User_ID`=? AND `Symbol`='?';";
+		String select = "Select Menge FROM `mytrade`.`useraktien` WHERE `User_ID`=? AND `Symbol`=?;";
 		PreparedStatement statement = null;
 		ResultSet result;
 		int aktienMenge = 0;
@@ -110,7 +110,7 @@ public class OrderDAO {
 			result.close();		
 		
 			
-			String delete = "DELETE FROM `mytrade`.`useraktien` WHERE `User_ID`=? AND `Symbol`='?';";
+			String delete = "DELETE FROM `mytrade`.`useraktien` WHERE `User_ID`=? AND `Symbol`=?;";
 			statement = null;
 
 			statement = connection.prepareStatement(delete);
@@ -119,7 +119,7 @@ public class OrderDAO {
 			statement.executeUpdate();
 			
 			
-			String insert = "INSERT INTO `mytrade`.`useraktien` (`Symbol`, `User_ID`, `Menge`) VALUES ('?', '?', '?');";
+			String insert = "INSERT INTO `mytrade`.`useraktien` (`Symbol`, `User_ID`, `Menge`) VALUES (?, ?, ?);";
 			statement = null;
 
 			statement = connection.prepareStatement(insert);
@@ -158,7 +158,7 @@ public class OrderDAO {
 	}
 
 	public void addUseraktie(Order order, User user){
-		String select = "Select Menge FROM `mytrade`.`useraktien` WHERE `User_ID`=? AND `Symbol`='?';";
+		String select = "Select Menge FROM `mytrade`.`useraktien` WHERE `User_ID`=? AND `Symbol`=?;";
 		PreparedStatement statement = null;
 		ResultSet result;
 		int aktienMenge = 0;
@@ -167,10 +167,9 @@ public class OrderDAO {
 			statement.setInt(1, user.getId());
 			statement.setString(2, order.getProduct().getSymbol());
 			result = statement.executeQuery();
-			result.close();
 			if(result.next()){
 				aktienMenge = result.getInt("Menge");
-				String update = "UPDATE `mytrade`.`useraktien` SET `Menge`='?' WHERE `User_ID`='?' AND `Symbol`='?';";
+				String update = "UPDATE `mytrade`.`useraktien` SET `Menge`='?' WHERE `User_ID`='?' AND `Symbol`=?;";
 				
 				statement = connection.prepareStatement(update);
 				statement.setInt(1, aktienMenge);
@@ -178,15 +177,16 @@ public class OrderDAO {
 				statement.setString(3, order.getProduct().getSymbol());
 				statement.executeUpdate();
 			}else{
-				String insert = "INSERT INTO `mytrade`.`useraktien` (`Symbol`, `User_ID`, `Menge`) VALUES ('?', '?', '?');";
-				statement = null;
+				statement.close();
+				String insert = "INSERT INTO `mytrade`.`useraktien` (`Symbol`, `User_ID`, `Menge`) VALUES (?, ?, ?);";
 
 				statement = connection.prepareStatement(insert);
 				statement.setString(1, order.getProduct().getSymbol());
 				statement.setInt(2, user.getId());
-				statement.setInt(3, aktienMenge);
+				statement.setInt(3, 1);
 				statement.executeUpdate();
 			}
+			result.close();
 			statement.close();
 			connection.commit();
 			
