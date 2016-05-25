@@ -16,16 +16,16 @@
 <h:body>
 
 	<p:growl id="messages" />
+	<h:form>
 	<p:menubar>
 		<p:menuitem value="Mein Portfolio"
 			url="/faces/private/haendler/Portfolio.xhtml?" />
 		<p:menuitem value="Offene Aufträge"
 			url="/faces/private/haendler/Auftraege.xhtml" />
-		<p:menuitem value="Logout" action="#{homeBean.logout}" />
+		<p:menuitem value="Logout" action="#{homeBean.logout}"/>
 		<p:menuitem value="#{homeBean.fullname}" disabled="true" />
-
 	</p:menubar>
-
+</h:form>
 
 	<div id="inhaltBox">
 		<h:form>
