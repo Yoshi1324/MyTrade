@@ -64,19 +64,61 @@ public class OrderDAO {
 		}
 	}
 
-	public void finishOrder() {
+	public void finishOrder(Order order) {
 		if (connection == null) {
 			throw new IllegalArgumentException("You must call useConnection before interacting with the database");
 		}
-		String insert = "DELETE FROM `mytrade`.`verkauf` WHERE `Verkauf_ID`='?';";
+		deletFromVerkauf(order.getId());
+		deletFromUserAktien(order);
+		
+	}
+
+	private void deletFromVerkauf(int order_id) {
+		String insert = "DELETE FROM `mytrade`.`verkauf` WHERE `Verkauf_ID`=?;";
 		PreparedStatement statement = null;
+
 		try {
 			statement = connection.prepareStatement(insert);
+			statement.setInt(1, order_id);
+			statement.executeUpdate();
+			connection.commit();
+			statement.close();
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void deletFromUserAktien(Order order) {
+		String insert = "Select FROM `mytrade`.`useraktien` WHERE `User_ID`=? AND `Symbol`='?';";
+		PreparedStatement statement = null;
+
+		try {
+			statement = connection.prepareStatement(insert);
+			statement.setInt(1, order.getSeller().getId());
+			statement.setString(2, order.getProduct().getSymbol());
+			statement.executeUpdate();
+			connection.commit();
+			statement.close();
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		
+		insert = "DELETE FROM `mytrade`.`useraktien` WHERE `Verkauf_ID`='?';";
+		statement = null;
+
+		try {
+			statement = connection.prepareStatement(insert);
+			statement.setInt(1, order_id);
+			statement.executeUpdate();
+			connection.commit();
+			statement.close();
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public ArrayList<Order> getAllOrder() {
@@ -85,7 +127,7 @@ public class OrderDAO {
 		}
 		ArrayList<Order> allOrders = new ArrayList<Order>();
 		Order order;
-		String insert = "SELECT  verkauf.Symbol, verkauf.Preis, verkauf.Verkäufer_ID, aktien.Bezeichnung FROM verkauf INNER JOIN aktien WHERE verkauf.symbol=aktien.symbol;";
+		String insert = "SELECT  verkauf.Verkauf_ID, verkauf.Symbol, verkauf.Preis, verkauf.Verkäufer_ID, aktien.Bezeichnung FROM verkauf INNER JOIN aktien WHERE verkauf.symbol=aktien.symbol;";
 		PreparedStatement statement = null;
 		
 		try {
@@ -94,6 +136,7 @@ public class OrderDAO {
 			ResultSet result = statement.executeQuery();
 			while (result.next()){
 				order = new Order();
+				order.setId(result.getInt("Verkauf_ID"));
 				order.setPrice(result.getDouble("Preis"));
 				order.getSeller().setId(result.getInt("Verkäufer_ID"));
 				order.getProduct().setSymbol(result.getString("Symbol"));
