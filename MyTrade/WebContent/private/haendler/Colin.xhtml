@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+	Author:	Ryan Brun
+	Date:	17.05.2016 
+ -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<title>Feedbackformular</title>
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:growl id="messages" />
+		<p:menubar>
+			<p:menuitem value="Mein Portfolio"
+				url="/faces/private/haendler/Portfolio.xhtml?" />
+			<p:menuitem value="Offene Aufträge"
+				url="/faces/private/haendler/Auftraege.xhtml" />
+			<p:menuitem value="Administration" url="/faces/private/admin/Admin.xhtml" />
+			<p:menuitem value="#{homeBean.fullname}" disabled="true" />
+			<p:menuitem value="Feedback geben!" url="/faces/private/haendler/Colin.xhtml" />
+		</p:menubar>
+	</h:form>
+	
+		<div id="inhaltBox">
+
+		<h:form>
+			<h:panelGrid columns="2">
+				<p:outputLabel for="fieldName" value="Name" />
+				<p:inputText id="fieldName" value="#{homeBean.fullname}" 
+				required="true"
+				requiredMessage="Name is required"/>
+
+				<p:outputLabel value="Mitteilung" />
+				<p:inputTextarea rows="10" cols="50" />
+				
+				<p:commandButton value="Feedback senden!"
+					ajax="false" />
+			</h:panelGrid>
+		</h:form>
+
+		<h:messages for="fieldName" style="color:red;margin:8px;" />
+
+	</div>
+	
+</h:body>
+</html>
